@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Isi Jurnal Literasi — Orang Tua</title>
+<meta name="description" content="Formulir untuk orang tua/wali mengisi Jurnal Literasi ananda — SDIT Muhammadiyah Harjamukti Kota Cirebon">
+<meta name="theme-color" content="#155A94">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green-900:#0A2F52; --green-800:#0E3F6C; --green-700:#155A94; --green-600:#1B72B8;
+  --green-100:#DCEAF7; --green-50:#EFF6FC;
+  --gold-700:#9C7A12; --gold-600:#C9A227; --gold-500:#DFBB45; --gold-100:#FBF1D3;
+  --cream:#FBF9F2; --cream-1:#F4F0E4; --paper:#FFFFFF;
+  --ink:#17232E; --ink-soft:#48586A; --line:#E1E4DE;
+  --brick-700:#9A3B1D; --brick-600:#B3441E; --brick-100:#FBE7DE;
+  --radius-sm:8px; --radius-md:14px; --radius-lg:20px;
+  --shadow-md:0 8px 24px rgba(10,30,50,.10);
+  --font-display:'Fraunces','Georgia',serif;
+  --font-body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+header{background:var(--paper);border-bottom:1px solid var(--line);padding:16px 18px;display:flex;align-items:center;gap:10px;}
+header h1{font-family:var(--font-display);font-size:1.25rem;margin:0;color:var(--green-900);}
+header .eyebrow{display:block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--green-700);font-weight:700;margin-bottom:1px;}
+main{max-width:560px;margin:0 auto;padding:18px 16px 48px;}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:22px;margin-bottom:16px;}
+.card h2{font-family:var(--font-display);font-size:1.4rem;margin:0 0 8px;color:var(--green-900);}
+.muted{color:var(--ink-soft);font-size:.9rem;line-height:1.55;}
+.field{display:block;margin-top:16px;}
+.field span.label{display:block;font-weight:700;font-size:.86rem;margin-bottom:6px;color:var(--green-900);}
+.field input, .field select, .field textarea{
+  width:100%;padding:13px 14px;font-size:1rem;font-family:var(--font-body);
+  background:var(--cream-1);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--ink);
+}
+.field textarea{resize:vertical;min-height:70px;}
+.field-desc{display:block;margin-top:6px;font-size:.78rem;color:var(--ink-soft);line-height:1.5;}
+.paraf-note{margin-top:16px;background:var(--green-50);border:1px solid var(--green-100);border-radius:var(--radius-sm);padding:12px 14px;font-size:.82rem;color:var(--green-900);line-height:1.5;}
+.actions{margin-top:22px;display:flex;gap:10px;}
+.btn{border:none;border-radius:var(--radius-sm);padding:14px 20px;font-weight:700;font-size:.95rem;font-family:var(--font-body);cursor:pointer;flex:1;}
+.btn-primary{background:var(--green-700);color:#fff;}
+.btn-primary:disabled{opacity:.55;cursor:default;}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink-soft);flex:0 0 auto;}
+.status-msg{margin-top:14px;font-size:.86rem;padding:10px 12px;border-radius:var(--radius-sm);display:none;}
+.status-msg.show{display:block;}
+.status-msg.warn{background:var(--gold-100);color:var(--gold-700);}
+.status-msg.error{background:var(--brick-100);color:var(--brick-700);}
+.status-msg.info{background:var(--green-50);color:var(--green-900);}
+#successState{display:none;text-align:center;}
+#successState .check{width:56px;height:56px;border-radius:50%;background:var(--green-50);color:var(--green-700);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:1.6rem;}
+#successState h2{margin-bottom:6px;}
+.history{margin-top:18px;text-align:left;}
+.history-item{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.84rem;}
+.history-item:last-child{border-bottom:none;}
+.history-item b{color:var(--green-900);}
+#configWarning{display:none;}
+#loadingState{display:none;text-align:center;padding:20px 0;color:var(--ink-soft);font-size:.9rem;}
+.advanced-toggle{margin-top:14px;font-size:.8rem;color:var(--green-700);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;font-family:inherit;}
+#advancedUrlWrap{display:none;margin-top:10px;}
+footer{max-width:560px;margin:0 auto;padding:0 16px 30px;color:var(--ink-soft);font-size:.78rem;text-align:center;line-height:1.6;}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <span class="eyebrow">SDIT Muhammadiyah Harjamukti</span>
+    <h1>Jurnal Literasi — Orang Tua</h1>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <h2>Isi Jurnal Literasi</h2>
+    <p class="muted">Catat bacaan ananda hari ini — baik di rumah maupun di sekolah. Cukup diisi lewat HP, tidak perlu login apa pun. Data akan otomatis masuk ke catatan Jurnal Literasi kelas.</p>
+
+    <div id="loadingState">Memuat daftar peserta didik&hellip;</div>
+
+    <form id="ortuForm" style="display:none;">
+      <label class="field">
+        <span class="label">Peserta Didik</span>
+        <select id="f_siswa" required>
+          <option value="">Pilih nama ananda&hellip;</option>
+          <option value="__manual__">+ Nama Lain (tulis manual)&hellip;</option>
+        </select>
+      </label>
+      <label class="field" id="f_manual_wrap" style="display:none;">
+        <span class="label">Nama Ananda (tulis lengkap)</span>
+        <input type="text" id="f_nama_manual" placeholder="Nama lengkap">
+      </label>
+      <label class="field">
+        <span class="label">Tanggal Membaca</span>
+        <input type="date" id="f_tanggal" required>
+      </label>
+      <label class="field">
+        <span class="label">Judul Buku/Bacaan</span>
+        <input type="text" id="f_judul" required placeholder="cth. Cerita Rakyat Nusantara">
+      </label>
+      <label class="field">
+        <span class="label">Buku Ke-</span>
+        <input type="text" id="f_bukuKe" placeholder="cth. 2, atau Lanjutan Buku ke-2">
+        <span class="field-desc">Isi urutan buku yang dibaca ananda pada tahun ajaran ini. Kalau bacaan hari ini masih melanjutkan buku yang sama seperti sebelumnya, tulis mis. "Buku ke-2 (lanjutan)"; kalau sudah pindah ke buku baru, tulis mis. "Buku ke-3".</span>
+      </label>
+      <label class="field">
+        <span class="label">Halaman Dibaca</span>
+        <input type="text" id="f_halaman" placeholder="cth. 12 hlm / hlm 5–17">
+      </label>
+      <label class="field">
+        <span class="label">Kesan/Pesan Singkat</span>
+        <textarea id="f_kesan" placeholder="Kesan atau pesan singkat ananda setelah membaca (opsional)"></textarea>
+      </label>
+
+      <div class="paraf-note">✓ Karena diisi langsung oleh Bapak/Ibu, jurnal ini otomatis tercatat sebagai <b>sudah diparaf orang tua</b>.</div>
+
+      <div id="submitStatus" class="status-msg"></div>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" id="submitBtn">Kirim Jurnal</button>
+      </div>
+    </form>
+
+    <div id="successState">
+      <div class="check">✓</div>
+      <h2>Jurnal Terkirim</h2>
+      <p class="muted">Catatan bacaan ananda berhasil disimpan.</p>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="fillAgainBtn">Isi Jurnal Lain</button>
+      </div>
+      <div class="history" id="historyList"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Formulir ini terhubung langsung ke catatan Jurnal Literasi sekolah — tidak perlu memasang aplikasi apa pun.
+</footer>
+
+<script>
+const LS_HISTORY_KEY = "jurnalOrtuHistory";
+
+function uuid(){
+  return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('id_'+Date.now()+'_'+Math.random().toString(36).slice(2));
+}
+function todayISO(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function escapeHtml(s){
+  return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function showStatus(el, msg, type){
+  el.textContent = msg;
+  el.className = 'status-msg show ' + (type||'info');
+}
+function getHistory(){
+  try{ return JSON.parse(localStorage.getItem(LS_HISTORY_KEY)||'[]'); }catch(e){ return []; }
+}
+function addHistory(entry){
+  const list = getHistory();
+  list.unshift(entry);
+  localStorage.setItem(LS_HISTORY_KEY, JSON.stringify(list.slice(0,8)));
+}
+function renderHistory(){
+  const wrap = document.getElementById('historyList');
+  const list = getHistory();
+  if(!list.length){ wrap.innerHTML = ''; return; }
+  wrap.innerHTML = '<p class="muted" style="margin-bottom:4px;">Terkirim dari HP ini:</p>' + list.map(it=>
+    `<div class="history-item"><span><b>${escapeHtml(it.nama)}</b> — ${escapeHtml(it.judul)}</span><span class="muted">${escapeHtml(it.tanggal)}</span></div>`
+  ).join('');
+}
+
+// ---------- URL Web App sudah tetap (khusus formulir ini) — orang tua/guru tidak perlu
+//            memasukkan link Apps Script apa pun, supaya tidak membingungkan. ----------
+const SYNC_URL = 'https://script.google.com/macros/s/AKfycbywG45f4-v3KSNE5j5CePcbbKdN_f6fmTgPlw0vRX4J-nAs4LOahUt_GxShnQVECqmFew/exec';
+
+// [BARU] Formulir ini PUBLIK (orang tua mengisi tanpa login/token), jadi ia HANYA memanggil
+// 2 jalur khusus di Code.gs yang sengaja tidak butuh Token Sinkron: "publicSiswaList" (baca
+// nis+nama saja) dan "publicLiterasi" (tambah 1 baris ke tab "literasi" saja). Jalur ini
+// tidak bisa dipakai untuk membaca/menulis data lain (jadwal/guru/jurnal/bk dst tetap
+// terlindungi Token Sinkron di sisi server).
+const PUBLIC_SISWA_URL = SYNC_URL + '?mode=publicSiswaList';
+
+const loadingState = document.getElementById('loadingState');
+const form = document.getElementById('ortuForm');
+const successState = document.getElementById('successState');
+
+async function loadSiswaList(){
+  const sel = document.getElementById('f_siswa');
+  try{
+    const res = await fetch(PUBLIC_SISWA_URL, { method:'GET' });
+    let data;
+    try{
+      data = await res.json();
+    }catch(parseErr){
+      /* Respons bukan JSON — biasanya berarti Apps Script mengalihkan ke halaman
+         login Google (izin akses deployment belum "Anyone"), bukan mengembalikan data. */
+      throw new Error('respons_bukan_json');
+    }
+    const siswa = Array.isArray(data.siswa) ? data.siswa.slice().sort((a,b)=>String(a.nama).localeCompare(String(b.nama),'id')) : [];
+    if(!siswa.length){
+      throw new Error('daftar_kosong');
+    }
+    sel.innerHTML = '<option value="">Pilih nama ananda&hellip;</option>' +
+      siswa.map(s=>`<option value="${escapeHtml(s.nis)}">${escapeHtml(s.nama)}</option>`).join('') +
+      '<option value="__manual__">+ Nama Lain (tulis manual)&hellip;</option>';
+  }catch(e){
+    // Gagal memuat daftar siswa — tetap izinkan isi manual supaya orang tua tidak buntu.
+    sel.innerHTML = '<option value="">Pilih nama ananda&hellip;</option><option value="__manual__">+ Tulis Nama Ananda&hellip;</option>';
+    sel.value = '__manual__';
+    document.getElementById('f_manual_wrap').style.display = 'block';
+    const status = document.getElementById('submitStatus');
+    const msg = (e && e.message === 'daftar_kosong')
+      ? 'Daftar nama peserta didik di Google Sheet masih kosong — minta guru menekan "Segarkan Data" di Dasbor setelah Data Siswa terisi. Sementara itu, silakan tulis nama ananda secara manual.'
+      : (e && e.message === 'respons_bukan_json')
+        ? 'Tidak bisa memuat daftar nama peserta didik (server sekolah menolak akses — kemungkinan izin akses Apps Script belum diatur "Anyone"). Silakan tulis nama ananda secara manual dulu; laporkan ini ke guru.'
+        : 'Daftar nama peserta didik tidak bisa dimuat (periksa koneksi internet). Silakan tulis nama ananda secara manual di bawah.';
+    showStatus(status, msg, 'warn');
+  }
+}
+
+document.getElementById('f_siswa').addEventListener('change', function(){
+  document.getElementById('f_manual_wrap').style.display = this.value === '__manual__' ? 'block' : 'none';
+});
+
+async function boot(){
+  loadingState.style.display = 'block';
+  document.getElementById('f_tanggal').value = todayISO();
+  document.getElementById('f_tanggal').max = todayISO();
+  await loadSiswaList();
+  loadingState.style.display = 'none';
+  form.style.display = 'block';
+}
+
+document.getElementById('ortuForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const status = document.getElementById('submitStatus');
+  const selVal = document.getElementById('f_siswa').value;
+  const manualNama = document.getElementById('f_nama_manual').value.trim();
+  if(!selVal){ showStatus(status, 'Pilih atau tulis nama ananda terlebih dahulu.', 'warn'); return; }
+  if(selVal === '__manual__' && !manualNama){ showStatus(status, 'Tulis nama ananda terlebih dahulu.', 'warn'); return; }
+  const judul = document.getElementById('f_judul').value.trim();
+  if(!judul){ showStatus(status, 'Judul buku/bacaan wajib diisi.', 'warn'); return; }
+
+  const namaSiswaTerpilih = selVal === '__manual__' ? manualNama : (document.getElementById('f_siswa').selectedOptions[0].textContent || '').trim();
+
+  const record = {
+    id: uuid(),
+    nis: selVal === '__manual__' ? '' : selVal,
+    nama: namaSiswaTerpilih,
+    tanggal: document.getElementById('f_tanggal').value || todayISO(),
+    judulBuku: judul,
+    bukuKe: document.getElementById('f_bukuKe').value.trim(),
+    halaman: document.getElementById('f_halaman').value.trim(),
+    kesan: document.getElementById('f_kesan').value.trim(),
+    parafOrtu: true
+  };
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Mengirim…';
+  showStatus(status, 'Mengirim jurnal…', 'info');
+  try{
+    const res = await fetch(SYNC_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ mode:'publicLiterasi', record })
+    });
+    let json = null;
+    try{ json = await res.json(); }catch(err){ json = null; }
+    if(!json || json.ok !== true) throw new Error((json && json.error) || 'Server tidak mengonfirmasi keberhasilan.');
+
+    addHistory({ nama: record.nama, judul: record.judulBuku, tanggal: record.tanggal });
+    form.reset();
+    document.getElementById('f_tanggal').value = todayISO();
+    document.getElementById('f_manual_wrap').style.display = 'none';
+    status.className = 'status-msg';
+    form.style.display = 'none';
+    successState.style.display = 'block';
+    renderHistory();
+  }catch(err){
+    showStatus(status, 'Gagal mengirim jurnal. Periksa koneksi internet lalu coba lagi — isian di atas belum hilang.', 'error');
+  }finally{
+    btn.disabled = false; btn.textContent = 'Kirim Jurnal';
+  }
+});
+
+document.getElementById('fillAgainBtn').addEventListener('click', ()=>{
+  successState.style.display = 'none';
+  form.style.display = 'block';
+});
+
+boot();
+</script>
+</body>
+</html>

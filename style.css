@@ -1,0 +1,909 @@
+/* ============================================================
+   Catatan Pengumpulan Tugas — SDIT Muhammadiyah Harjamukti
+   Design tokens: Biru + Gold + Krem (warna utama diubah dari
+   hijau menjadi biru — nama variabel "--green-*" dipertahankan
+   apa adanya supaya semua rule/skrip yang memakainya tidak perlu
+   diubah satu-satu, tapi nilainya sekarang bernuansa biru)
+   Display: Fraunces · Body/UI: Inter · Data/Mono: JetBrains Mono
+   ============================================================ */
+
+:root{
+  --green-900:#0A2F52;
+  --green-800:#0E3F6C;
+  --green-700:#155A94;
+  --green-600:#1B72B8;
+  --green-100:#DCEAF7;
+  --green-50:#EFF6FC;
+  --gold-700:#9C7A12;
+  --gold-600:#C9A227;
+  --gold-500:#DFBB45;
+  --gold-100:#FBF1D3;
+  --cream:#FBF9F2;
+  --cream-1:#F4F0E4;
+  --paper:#FFFFFF;
+  --ink:#17232E;
+  --ink-soft:#48586A;
+  --line:#E1E4DE;
+  --brick-700:#9A3B1D;
+  --brick-600:#B3441E;
+  --brick-100:#FBE7DE;
+
+  /* [BARU] Warna per kategori Mata Pelajaran (Jadwal Pelajaran) */
+  --sub-matematika-bg:#FFF1DC; --sub-matematika-text:#A15C00; --sub-matematika-line:#F0B15C;
+  --sub-ipas-bg:#E1EFFC;       --sub-ipas-text:#175A9C;       --sub-ipas-line:#7DAEE0;
+  --sub-seni-bg:#F3E7FC;       --sub-seni-text:#7439A8;       --sub-seni-line:#C79EE8;
+  --sub-pancasila-bg:#DEF6EF;  --sub-pancasila-text:#0C7A62;  --sub-pancasila-line:#7BCFB9;
+  --sub-literasi-bg:#FCE4F0;   --sub-literasi-text:#A81E6F;   --sub-literasi-line:#E993C1;
+  --sub-bindo-bg:#FDEBE0;      --sub-bindo-text:#B24A17;      --sub-bindo-line:#EDA97C;
+  --sub-kokurikuler-bg:#EAF0FC; --sub-kokurikuler-text:#2C55A8; --sub-kokurikuler-line:#9AB4E6;
+  --sub-lain-bg:var(--cream-1); --sub-lain-text:var(--text-soft); --sub-lain-line:var(--border);
+
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --shadow-sm:0 1px 2px rgba(10,30,50,.06), 0 1px 1px rgba(10,30,50,.04);
+  --shadow-md:0 8px 24px rgba(10,30,50,.10);
+  --shadow-lg:0 16px 40px rgba(10,30,50,.16);
+
+  /* [BARU] Kontras kotak/kartu dashboard — border lebih tegas & bayangan lebih terasa
+     supaya batas antar kotak jelas terlihat (gaya dashboard modern/card style) */
+  --border-strong:#C9C1A2;
+  --card-shadow:0 2px 6px rgba(10,30,50,.08), 0 1px 2px rgba(10,30,50,.05);
+  --card-shadow-hover:0 10px 26px rgba(10,30,50,.14);
+
+  --font-display:'Fraunces', 'Georgia', serif;
+  --font-body:'Inter', system-ui, sans-serif;
+  --font-mono:'JetBrains Mono', ui-monospace, monospace;
+
+  --bg:var(--cream);
+  --surface:var(--paper);
+  --text:var(--ink);
+  --text-soft:var(--ink-soft);
+  --border:var(--line);
+  --sidebar-bg:var(--green-900);
+}
+
+[data-theme="dark"]{
+  --bg:#0F1620;
+  --surface:#161F2B;
+  --text:#EAF1F8;
+  --text-soft:#A9B8C7;
+  --border:#263243;
+  --cream-1:#1A2330;
+  --green-100:#152B42;
+  --green-50:#101F33;
+  --gold-100:#2B2412;
+  --brick-100:#2C1712;
+  --sidebar-bg:#081420;
+  --border-strong:#324356;
+  --card-shadow:0 2px 6px rgba(0,0,0,.28), 0 1px 2px rgba(0,0,0,.2);
+  --card-shadow-hover:0 10px 26px rgba(0,0,0,.38);
+  /* [BARU] Warna kategori Mata Pelajaran — varian gelap */
+  --sub-matematika-bg:#2E2412; --sub-matematika-text:#F2B559; --sub-matematika-line:#7A5A24;
+  --sub-ipas-bg:#132433;       --sub-ipas-text:#7FB6E8;       --sub-ipas-line:#2C4C68;
+  --sub-seni-bg:#251A30;       --sub-seni-text:#CBA2E8;       --sub-seni-line:#4A3560;
+  --sub-pancasila-bg:#0F2A22;  --sub-pancasila-text:#6ED9BC;  --sub-pancasila-line:#1F5445;
+  --sub-literasi-bg:#2D1522;   --sub-literasi-text:#EB92C0;   --sub-literasi-line:#5C2C48;
+  --sub-bindo-bg:#33200F;      --sub-bindo-text:#F2A46F;      --sub-bindo-line:#6B3D1E;
+  --sub-kokurikuler-bg:#101F33; --sub-kokurikuler-text:#8FB0EA; --sub-kokurikuler-line:#28406B;
+  --sub-lain-bg:var(--cream-1); --sub-lain-text:var(--text-soft); --sub-lain-line:var(--border);
+}
+
+*{box-sizing:border-box;}
+[hidden]{display:none !important;}
+html,body{margin:0;padding:0;height:100%;}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+button,input,select,textarea{font-family:inherit;font-size:1rem;color:inherit;}
+button{cursor:pointer;}
+h1,h2,h3{font-family:var(--font-display);margin:0;letter-spacing:-0.01em;}
+::selection{background:var(--gold-500);color:var(--green-900);}
+
+/* ===== Splash ===== */
+.splash{
+  position:fixed;inset:0;z-index:999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, var(--green-700) 0%, var(--green-900) 55%, #051222 100%);
+  color:#fff;
+  /* [BARU] Splash tampil selama 5 detik sebelum memudar */
+  animation:splashOut .55s ease 5s forwards;
+}
+/* [BARU] Logo pop-in lalu berpantul-pantul (bounce) selama splash tampil */
+.splash-logo{
+  width:120px;height:120px;object-fit:contain;
+  filter:drop-shadow(0 10px 30px rgba(0,0,0,.35));
+  transform-origin:center bottom;
+  animation:
+    splashPop .5s cubic-bezier(.34,1.56,.64,1) both,
+    splashBounce 1.05s cubic-bezier(.36,0,.66,-0.02) .5s 4;
+}
+.splash-title{font-family:var(--font-display);font-weight:600;font-size:1.15rem;text-align:center;line-height:1.3;}
+.splash-sub{font-family:var(--font-body);color:var(--gold-500);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;font-weight:700;}
+.splash-loader{display:flex;gap:6px;margin-top:8px;}
+.splash-loader span{width:6px;height:6px;border-radius:50%;background:var(--gold-500);animation:blink 1.1s infinite ease-in-out;}
+.splash-loader span:nth-child(2){animation-delay:.15s;}
+.splash-loader span:nth-child(3){animation-delay:.3s;}
+@keyframes blink{0%,80%,100%{opacity:.25;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
+@keyframes splashPop{from{opacity:0;transform:scale(.7);}to{opacity:1;transform:scale(1);}}
+/* [BARU] Efek pantulan bola: naik-turun dengan sedikit "squash & stretch" */
+@keyframes splashBounce{
+  0%,100%{transform:translateY(0) scale(1,1);}
+  18%{transform:translateY(-26px) scale(1.06,0.93);}
+  38%{transform:translateY(0) scale(0.93,1.09);}
+  52%{transform:translateY(-12px) scale(1.03,0.97);}
+  70%{transform:translateY(0) scale(0.97,1.04);}
+  85%{transform:translateY(-4px) scale(1.01,0.99);}
+  95%{transform:translateY(0) scale(1,1);}
+}
+@keyframes splashOut{to{opacity:0;visibility:hidden;pointer-events:none;}}
+
+/* ===== App shell ===== */
+.app{display:flex;min-height:100vh;}
+
+.sidebar{
+  width:260px;flex-shrink:0;
+  background:
+    radial-gradient(600px 300px at 100% 0%, rgba(201,162,39,.14), transparent 60%),
+    var(--sidebar-bg);
+  color:#EAF3ED;
+  display:flex;flex-direction:column;
+  position:fixed;top:0;bottom:0;left:0;z-index:60;
+  transition:transform .28s ease;
+  border-right:1px solid rgba(255,255,255,.06);
+}
+.sidebar::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;
+  background-image:
+    radial-gradient(circle at 10px 10px, var(--gold-500) 1.4px, transparent 1.6px);
+  background-size:26px 26px;
+  mask-image:linear-gradient(180deg, black, transparent 85%);
+}
+.brand{display:flex;align-items:center;gap:12px;padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.08);position:relative;}
+.brand-logo{width:44px;height:44px;object-fit:contain;flex-shrink:0;}
+.brand-text{display:flex;flex-direction:column;line-height:1.35;}
+.brand-text strong{font-family:var(--font-display);font-size:.98rem;font-weight:600;}
+.brand-text span{font-size:.72rem;color:var(--gold-500);letter-spacing:.02em;}
+
+.nav{flex:1;padding:14px 12px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;position:relative;}
+.nav-item{
+  display:flex;align-items:center;gap:12px;padding:11px 14px;border:none;background:transparent;
+  color:#CBDCD1;border-radius:var(--radius-sm);text-align:left;font-size:.89rem;font-weight:500;
+  transition:background .15s, color .15s;
+}
+.nav-item .ic{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#fff;}
+.nav-item.active{background:linear-gradient(90deg, rgba(201,162,39,.22), rgba(201,162,39,.06));color:#fff;box-shadow:inset 3px 0 0 var(--gold-500);}
+
+.sidebar-foot{padding:16px;border-top:1px solid rgba(255,255,255,.08);position:relative;}
+.ty{font-size:.68rem;color:#7FA08D;text-align:center;margin-top:10px;letter-spacing:.03em;}
+
+.scrim{display:none;position:fixed;inset:0;background:rgba(7,20,13,.5);z-index:55;}
+
+.main{flex:1;margin-left:260px;min-width:0;display:flex;flex-direction:column;}
+
+.topbar{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;gap:14px;
+  padding:16px 26px;background:var(--bg);
+  border-bottom:1px solid var(--border);
+}
+.topbar h1{font-size:1.28rem;font-weight:600;}
+.hamburger{display:none;background:none;border:none;padding:6px;color:var(--text);}
+.hamburger svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;}
+.topbar-actions{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.icon-btn{background:var(--surface);border:1px solid var(--border);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.icon-btn .ic{width:18px;height:18px;fill:none;stroke:var(--text);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.icon-btn .moon{display:none;}
+[data-theme="dark"] .icon-btn .sun{display:none;}
+[data-theme="dark"] .icon-btn .moon{display:block;}
+.online-pill{font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:99px;background:var(--green-100);color:var(--green-700);}
+.online-pill.offline{background:var(--brick-100);color:var(--brick-700);}
+
+.content{padding:22px 26px 60px;max-width:1320px;width:100%;margin:0 auto;}
+.view[hidden]{display:none;}
+
+/* ===== Stat Cards ===== */
+.cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;}
+.stat-card{
+  background:var(--surface);border:1.5px solid var(--border-strong);border-radius:var(--radius-md);
+  padding:18px 20px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--card-shadow);
+  transition:box-shadow .15s ease, border-color .15s ease;
+}
+.stat-label{font-size:.78rem;color:var(--text-soft);font-weight:600;}
+.stat-value{font-family:var(--font-mono);font-size:1.9rem;font-weight:600;color:var(--green-800);}
+[data-theme="dark"] .stat-value{color:var(--green-100);}
+.stat-note{font-size:.75rem;color:var(--text-soft);}
+.stat-primary .stat-value{color:var(--gold-700);}
+.stat-good .stat-value{color:var(--green-700);}
+.stat-bad .stat-value{color:var(--brick-600);}
+
+/* [BARU] Angka Sudah/Belum yang bisa diklik pada Data Siswa -> lompat ke Data Tugas,
+   langsung terfilter ke siswa, status, dan (bila filter Mapel aktif persis 1) mata
+   pelajaran terkait, supaya memudahkan pengeditan. */
+.siswa-status-link{
+  font-family:var(--font-mono);font-weight:700;font-size:.92rem;
+  background:none;border:none;padding:2px 6px;border-radius:6px;cursor:pointer;
+  text-decoration:underline;text-underline-offset:2px;
+}
+.siswa-status-link:hover{background:var(--green-50);}
+.siswa-status-good{color:var(--green-700);}
+.siswa-status-bad{color:var(--brick-600);}
+.siswa-status-bad:hover{background:var(--brick-100);}
+
+/* [BARU] Kartu statistik yang bisa diklik (mis. "Belum Mengumpulkan" -> lompat ke Data Tugas) */
+.stat-card-clickable{
+  font-family:inherit;text-align:left;cursor:pointer;width:100%;
+  transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.stat-card-clickable:hover{transform:translateY(-2px);box-shadow:var(--card-shadow-hover);border-color:var(--brick-600);}
+.stat-card-clickable:active{transform:translateY(0);}
+.stat-card-clickable:focus-visible{outline:2px solid var(--brick-600);outline-offset:2px;}
+
+/* [BARU] Running text elegan berisi kata motivasi mengajar (berganti tiap buka aplikasi) */
+.motivasi-marquee{
+  overflow:hidden;white-space:nowrap;margin-bottom:14px;padding:9px 0;
+  background:linear-gradient(90deg, var(--green-800), var(--green-700) 45%, var(--green-800));
+  border-radius:99px;box-shadow:var(--card-shadow);border:1px solid var(--green-900);
+}
+.motivasi-marquee-track{
+  display:inline-block;padding-left:100%;
+  animation:motivasiScroll 24s linear infinite;
+  font-family:var(--font-display);font-style:italic;font-weight:600;
+  color:#fff;font-size:.92rem;letter-spacing:.2px;
+}
+.motivasi-marquee:hover .motivasi-marquee-track{animation-play-state:paused;}
+@keyframes motivasiScroll{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-100%);}
+}
+@media (prefers-reduced-motion: reduce){
+  .motivasi-marquee-track{animation:none;padding-left:16px;}
+}
+
+/* [BARU] Toolbar Dasbor: Jam Analog + Tanggal Digital + Segarkan Data */
+.dash-toolbar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  background:var(--surface);border:1.5px solid var(--border-strong);border-radius:var(--radius-md);
+  padding:16px 20px;margin-bottom:20px;box-shadow:var(--card-shadow);
+}
+.clock-widget{display:flex;align-items:center;gap:16px;}
+.analog-clock{width:64px;height:64px;flex:none;}
+.clock-face{fill:var(--cream-1);stroke:var(--green-700);stroke-width:3;}
+.clock-tick{stroke:var(--text-soft);stroke-width:2;}
+.clock-tick-major{stroke:var(--green-700);stroke-width:3;}
+.clock-hand{stroke-linecap:round;transform-origin:100px 100px;}
+.clock-hand-hour{stroke:var(--ink);stroke-width:7;}
+.clock-hand-minute{stroke:var(--ink);stroke-width:5;}
+.clock-hand-second{stroke:var(--brick-600);stroke-width:2.5;}
+.clock-center{fill:var(--gold-600);}
+.clock-digital{display:flex;flex-direction:column;gap:2px;}
+.clock-time{font-family:var(--font-mono);font-size:1.5rem;font-weight:600;color:var(--green-800);line-height:1.1;}
+[data-theme="dark"] .clock-time{color:var(--green-100);}
+.clock-date{font-size:.82rem;color:var(--text-soft);text-transform:capitalize;}
+.dash-sync-box{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.dash-sync-status{font-size:.76rem;}
+.refresh-ic{transition:transform .5s ease;}
+.refresh-ic.spinning{animation:dashRefreshSpin .8s linear infinite;}
+@keyframes dashRefreshSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+/* [BARU] Pemutar lagu Dasbor */
+.dash-audio-box{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.dash-audio-btn{display:inline-flex;align-items:center;gap:6px;}
+.dash-audio-btn.is-playing{color:var(--green-700);border-color:var(--green-700);}
+.dash-audio-volume{width:90px;accent-color:var(--green-700);}
+@media (max-width:560px){
+  .dash-audio-box{width:100%;justify-content:space-between;}
+}
+
+/* [BARU] Jadwal mengajar hari ini — tampil penuh di bawah baris jam & tombol segarkan */
+.today-schedule{
+  flex-basis:100%;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);
+}
+.today-schedule-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.today-schedule-label{font-size:.85rem;font-weight:700;color:var(--green-800);}
+[data-theme="dark"] .today-schedule-label{color:var(--green-100);}
+.today-schedule-day{font-size:.74rem;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--green-100);color:var(--green-700);}
+.today-schedule-list{display:flex;gap:10px;flex-wrap:wrap;}
+.today-schedule-item{
+  display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:10px;
+  border:1px solid var(--border);font-size:.8rem;
+}
+.today-schedule-item.jadwal-badge-matematika{border-color:var(--sub-matematika-line);}
+.today-schedule-item.jadwal-badge-ipas{border-color:var(--sub-ipas-line);}
+.today-schedule-item.jadwal-badge-seni{border-color:var(--sub-seni-line);}
+.today-schedule-item.jadwal-badge-pancasila{border-color:var(--sub-pancasila-line);}
+.today-schedule-item.jadwal-badge-literasi{border-color:var(--sub-literasi-line);}
+.today-schedule-item.jadwal-badge-lain{border-color:var(--sub-lain-line);}
+.today-schedule-time{font-family:var(--font-mono);font-weight:600;opacity:.85;}
+.today-schedule-mapel{font-weight:700;}
+.today-schedule-empty{font-size:.82rem;color:var(--text-soft);}
+@media (max-width:560px){
+  .dash-toolbar{flex-direction:column;align-items:stretch;}
+  .dash-sync-box{justify-content:space-between;}
+}
+
+.progress-block{background:var(--surface);border:1.5px solid var(--border-strong);border-radius:var(--radius-md);padding:16px 20px;margin-bottom:20px;box-shadow:var(--card-shadow);}
+.progress-block-head{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:10px;color:var(--text-soft);}
+.progress-block-head strong{color:var(--green-700);font-family:var(--font-mono);font-size:1rem;}
+.progress-track{height:10px;border-radius:99px;background:var(--cream-1);overflow:hidden;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg, var(--green-600), var(--gold-600));transition:width .5s ease;border-radius:99px;}
+
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+
+.panel{background:var(--surface);border:1.5px solid var(--border-strong);border-radius:var(--radius-md);padding:18px 20px;margin-bottom:16px;box-shadow:var(--card-shadow);}
+.panel-head{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;}
+.panel-head h3{font-size:1.02rem;font-weight:600;color:var(--text);}
+.muted{color:var(--text-soft);font-size:.85rem;}
+
+/* [BARU] Toggle Mingguan/Bulanan pada grafik Tren Pengumpulan */
+.panel-head-toggle{justify-content:space-between;}
+.chip-toggle-group{display:flex;flex-wrap:wrap;gap:6px;background:var(--cream-1);border-radius:999px;padding:3px;}
+.chip-toggle{border:none;background:transparent;color:var(--text-soft);font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:999px;cursor:pointer;transition:background .15s,color .15s;}
+.chip-toggle.active{background:var(--green-700);color:#fff;}
+/* [BARU] Wrapper chip hari + tombol tambah cepat (ikon "+") di Jadwal Pelajaran */
+.hari-chip-wrap{display:inline-flex;align-items:center;gap:2px;padding-right:2px;}
+.hari-add-btn{width:20px;height:20px;flex-shrink:0;border:none;border-radius:50%;background:var(--green-700);color:#fff;font-size:.85rem;font-weight:700;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;opacity:.85;transition:opacity .15s,transform .15s;}
+.hari-add-btn:hover{opacity:1;transform:scale(1.08);}
+.hari-add-btn:active{transform:scale(.94);}
+
+/* [BARU] Peringkat Kerajinan Siswa */
+.rank-list{display:flex;flex-direction:column;gap:10px;}
+.rank-row{display:flex;align-items:center;gap:10px;}
+.rank-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--cream-1);color:var(--text-soft);font-size:.74rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.rank-info{flex-shrink:0;width:132px;min-width:0;display:flex;flex-direction:column;gap:1px;}
+.rank-name{font-size:.84rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rank-meta{font-size:.72rem;color:var(--text-soft);}
+.rank-bar{flex:1;height:8px;border-radius:999px;background:var(--cream-1);overflow:hidden;}
+.rank-bar-fill{height:100%;border-radius:999px;}
+.rank-bar-fill.good{background:var(--green-700);}
+.rank-bar-fill.bad{background:var(--brick-600);}
+
+/* ===== Tables ===== */
+.table-wrap{overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--border);}
+.data-table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:640px;}
+.data-table thead th{
+  background:var(--green-50);color:var(--green-800);text-align:left;font-weight:700;
+  padding:10px 12px;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;
+  border-bottom:1px solid var(--border);white-space:nowrap;
+}
+[data-theme="dark"] .data-table thead th{color:var(--gold-500);}
+.data-table thead th[data-sort]{cursor:pointer;user-select:none;}
+.data-table thead th[data-sort]:hover{color:var(--gold-700);}
+.data-table tbody td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.data-table tbody tr:last-child td{border-bottom:none;}
+.data-table tbody tr:hover{background:var(--green-50);}
+.data-table td.mono, .data-table td:nth-child(2){font-family:var(--font-mono);font-size:.82rem;}
+/* [BARU] Sel tabel yang dipotong (Tujuan Materi / Catatan di Data Tugas) — teks hanya
+   tampil beberapa kata dulu (dipotong dgn "…"), lalu bisa diklik untuk melihat isi
+   lengkapnya lewat modal (lihat #tugasTextModal & openTugasTextModal() di app.js). */
+.cell-clip-btn{
+  background:none;border:none;padding:0;margin:0;font:inherit;color:var(--green-700,#155A94);
+  text-align:left;cursor:pointer;text-decoration:none;
+}
+.cell-clip-btn:hover{text-decoration:underline;}
+/* [BARU] Kolom "Kesan/Pesan Singkat" pada tabel Jurnal Literasi — dibatasi lebarnya supaya
+   tabel tetap rapi walau kesannya panjang; teks penuhnya dibuka lewat modal "Lihat selengkapnya"
+   (lihat ringkasKesan()/openLitKesanModal() di app.js). */
+.kesan-cell{max-width:220px;}
+.lihat-selengkapnya{
+  display:inline-block;margin-left:4px;font-size:.78rem;font-weight:600;
+  color:var(--green-700,#155A94);text-decoration:none;white-space:nowrap;
+}
+.lihat-selengkapnya:hover{text-decoration:underline;}
+.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.72rem;font-weight:700;white-space:nowrap;}
+.badge-good{background:var(--green-100);color:var(--green-700);}
+.badge-bad{background:var(--brick-100);color:var(--brick-700);}
+.badge-warn{background:var(--gold-100);color:var(--gold-700);}
+.result-count-wrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.badge-clickable{border:none;cursor:pointer;font-family:inherit;transition:filter .15s ease,transform .1s ease;}
+.badge-clickable:hover{filter:brightness(0.94);}
+.badge-clickable:active{transform:scale(0.97);}
+.badge-clickable.active{outline:2px solid var(--brick-700);outline-offset:1px;}
+.row-actions{display:flex;gap:6px;}
+.row-actions button{background:none;border:1px solid var(--border);border-radius:7px;padding:5px 9px;font-size:.78rem;color:var(--text-soft);}
+.row-actions button:hover{border-color:var(--gold-600);color:var(--gold-700);}
+.row-actions button.danger:hover{border-color:var(--brick-600);color:var(--brick-600);}
+/* [BARU] Tombol kirim WA ke orang tua */
+.row-actions button.wa{border-color:#25D366;color:#128C4A;}
+.row-actions button.wa:hover{background:#25D366;color:#fff;}
+
+/* ===== Forms ===== */
+.form-panel{max-width:900px;}
+.grid-form{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;}
+.field{display:flex;flex-direction:column;gap:6px;font-size:.85rem;font-weight:600;color:var(--text-soft);}
+.field-wide{grid-column:1/-1;}
+/* [BARU] Checkbox auto-lengkapi Belum Mengumpulkan pada form Input Tugas */
+.checkbox-field{flex-direction:row;align-items:flex-start;gap:10px;font-weight:500;background:var(--cream-1);border:1px solid var(--border);border-radius:10px;padding:10px 12px;}
+.checkbox-field input[type="checkbox"]{margin-top:2px;width:16px;height:16px;flex-shrink:0;accent-color:var(--green-700);cursor:pointer;}
+.checkbox-field span{line-height:1.4;}
+.field input, .field select, .field textarea{
+  font-weight:400;color:var(--text);background:var(--cream-1);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:10px 12px;outline:none;transition:border-color .15s, box-shadow .15s;
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--gold-600);box-shadow:0 0 0 3px rgba(201,162,39,.18);}
+.field input[readonly]{opacity:.75;}
+.field-hint{font-weight:600;color:var(--gold-700);font-style:normal;font-size:.78rem;}
+/* [BARU] Teks deskripsi/petunjuk singkat di bawah sebuah input form (mis. "Buku Ke-" pada
+   Jurnal Literasi) — beda dari .field-hint (dipakai untuk label inline seperti "(0 dipilih)"),
+   ini khusus kalimat penjelasan yang lebih panjang, ditaruh di baris baru di bawah kotak input. */
+.field-desc{font-weight:400;font-size:.74rem;line-height:1.4;color:var(--text-soft);margin-top:2px;}
+
+.student-picker{background:var(--cream-1);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;}
+.student-picker-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px;}
+.student-picker-toolbar input[type="search"]{
+  flex:1;min-width:160px;background:var(--surface);border:1px solid var(--border);border-radius:7px;
+  padding:7px 10px;font-size:.83rem;color:var(--text);font-weight:400;
+}
+.chip-group{display:flex;gap:4px;}
+.chip{background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:5px 12px;font-size:.76rem;font-weight:600;color:var(--text-soft);}
+.chip.active{background:var(--green-700);border-color:var(--green-700);color:#fff;}
+.link-btn{background:none;border:none;color:var(--green-700);font-size:.78rem;font-weight:700;padding:5px 6px;text-decoration:underline;}
+[data-theme="dark"] .link-btn{color:var(--gold-500);}
+.student-list{max-height:230px;overflow-y:auto;display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--border);padding-top:6px;}
+.student-row{
+  display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;font-weight:400;font-size:.87rem;color:var(--text);cursor:pointer;
+}
+.student-row:hover{background:var(--green-50);}
+.student-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--green-700);flex-shrink:0;}
+.student-row .student-name{flex:1;}
+.student-row .student-meta{color:var(--text-soft);font-size:.76rem;}
+.student-row.checked{background:var(--green-100);}
+.student-empty{padding:14px;text-align:center;color:var(--text-soft);font-size:.85rem;}
+.edit-mode-note{margin:8px 2px 0;font-size:.76rem;color:var(--gold-700);font-weight:600;}
+.form-actions{grid-column:1/-1;display:flex;gap:10px;justify-content:flex-end;margin-top:6px;}
+
+/* [BARU] tombol aksi kecil (edit/hapus) di baris tabel Jadwal Pelajaran */
+.btn-icon-sm{background:transparent;border:1px solid var(--border);border-radius:8px;padding:4px 8px;cursor:pointer;font-size:.9rem;line-height:1;margin-right:4px;transition:background .15s,border-color .15s;}
+.btn-icon-sm:hover{background:var(--cream-1);border-color:var(--text-soft);}
+.col-aksi{white-space:nowrap;}
+
+/* [BARU] Tabel Jadwal Pelajaran — dibuat tetap rapi tanpa perlu scroll ke kanan.
+   Beda dari .data-table biasa (min-width:640px + overflow-x:auto), tabel ini
+   memakai lebar kolom proporsional (table-layout:fixed) supaya selalu muat
+   di lebar layar yang tersedia; teks yang panjang akan turun baris, bukan
+   memaksa scroll. Di layar sangat sempit, tabel berubah jadi kartu bertumpuk. */
+.jadwal-table-wrap{overflow-x:visible;}
+.jadwal-table{min-width:0;width:100%;table-layout:fixed;}
+.jadwal-table th, .jadwal-table td{white-space:normal;word-break:break-word;}
+.jadwal-table th:nth-child(1), .jadwal-table td:nth-child(1){width:14%;}
+.jadwal-table th:nth-child(2), .jadwal-table td:nth-child(2){width:30%;}
+.jadwal-table th:nth-child(3), .jadwal-table td:nth-child(3){width:38%;}
+.jadwal-table th:nth-child(4), .jadwal-table td:nth-child(4){width:18%;}
+.jadwal-rekap-table th:nth-child(1), .jadwal-rekap-table td:nth-child(1){width:70%;}
+.jadwal-rekap-table th:nth-child(2), .jadwal-rekap-table td:nth-child(2){width:30%;}
+
+@media (max-width:600px){
+  .jadwal-table thead{display:none;}
+  .jadwal-table, .jadwal-table tbody, .jadwal-table tr, .jadwal-table td{display:block;width:100% !important;}
+  .jadwal-table tr{border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:10px;padding:4px 0;background:var(--surface);}
+  .jadwal-table tbody tr:hover{background:var(--surface);}
+  .jadwal-table td{border-bottom:none;padding:6px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .jadwal-table td::before{content:attr(data-label);font-weight:700;font-size:.72rem;color:var(--text-soft);text-transform:uppercase;letter-spacing:.02em;flex-shrink:0;}
+  .jadwal-table td.col-aksi{justify-content:flex-end;}
+  .jadwal-table td.col-aksi::before{display:none;}
+}
+
+/* [BARU] Warna kotak/kartu jadwal dibedakan per Mata Pelajaran, supaya mudah
+   dikenali sekilas — sama seperti pewarnaan pada jadwal cetak sekolah.
+   Baris tabel (desktop) memakai garis aksen kiri + tint latar tipis; kartu
+   (mobile, lihat breakpoint di atas) memakai bingkai penuh warna kategori. */
+.jadwal-table .jadwal-row-matematika{box-shadow:inset 4px 0 0 var(--sub-matematika-line);background:var(--sub-matematika-bg);}
+.jadwal-table .jadwal-row-ipas{box-shadow:inset 4px 0 0 var(--sub-ipas-line);background:var(--sub-ipas-bg);}
+.jadwal-table .jadwal-row-seni{box-shadow:inset 4px 0 0 var(--sub-seni-line);background:var(--sub-seni-bg);}
+.jadwal-table .jadwal-row-pancasila{box-shadow:inset 4px 0 0 var(--sub-pancasila-line);background:var(--sub-pancasila-bg);}
+.jadwal-table .jadwal-row-literasi{box-shadow:inset 4px 0 0 var(--sub-literasi-line);background:var(--sub-literasi-bg);}
+.jadwal-table .jadwal-row-lain{box-shadow:inset 4px 0 0 var(--sub-lain-line);background:var(--sub-lain-bg);}
+.jadwal-table tbody tr.jadwal-row:hover{filter:brightness(0.97);}
+
+.jadwal-badge-matematika{background:var(--sub-matematika-bg);color:var(--sub-matematika-text);}
+.jadwal-badge-ipas{background:var(--sub-ipas-bg);color:var(--sub-ipas-text);}
+.jadwal-badge-seni{background:var(--sub-seni-bg);color:var(--sub-seni-text);}
+.jadwal-badge-pancasila{background:var(--sub-pancasila-bg);color:var(--sub-pancasila-text);}
+.jadwal-badge-literasi{background:var(--sub-literasi-bg);color:var(--sub-literasi-text);}
+.jadwal-badge-lain{background:var(--sub-lain-bg);color:var(--sub-lain-text);}
+
+@media (max-width:600px){
+  .jadwal-table tr.jadwal-row{box-shadow:none;border-width:2px;}
+  .jadwal-row-matematika{border-color:var(--sub-matematika-line) !important;}
+  .jadwal-row-ipas{border-color:var(--sub-ipas-line) !important;}
+  .jadwal-row-seni{border-color:var(--sub-seni-line) !important;}
+  .jadwal-row-pancasila{border-color:var(--sub-pancasila-line) !important;}
+  .jadwal-row-literasi{border-color:var(--sub-literasi-line) !important;}
+  .jadwal-row-lain{border-color:var(--sub-lain-line) !important;}
+}
+
+/* ===== Buttons ===== */
+.btn{border:none;border-radius:var(--radius-sm);padding:11px 18px;font-weight:600;font-size:.88rem;transition:transform .1s, background .15s, box-shadow .15s;}
+.btn:active{transform:scale(.97);}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+.btn-primary{background:var(--green-700);color:#fff;}
+.btn-primary:hover{background:var(--green-800);}
+.btn-gold{background:var(--gold-600);color:var(--green-900);}
+.btn-gold:hover{background:var(--gold-500);}
+.btn-ghost{background:transparent;color:var(--text-soft);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--text-soft);}
+.btn-outline{background:var(--surface);color:var(--green-700);border:1px solid var(--green-700);}
+.btn-outline:hover{background:var(--green-50);}
+[data-theme="dark"] .btn-outline{color:var(--gold-500);border-color:var(--gold-600);}
+.btn-danger{background:var(--brick-600);color:#fff;}
+.btn-danger-outline{background:transparent;color:var(--brick-600);border:1px solid var(--brick-600);}
+.btn-danger-outline:hover{background:var(--brick-100);}
+/* [BARU] Tombol Pengingat WA Massal */
+.btn-wa-outline{background:var(--surface);color:#128C4A;border:1px solid #25D366;}
+.btn-wa-outline:hover{background:#25D366;color:#fff;}
+.btn-block{width:100%;}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;}
+.file-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;}
+
+/* [BARU] Tanda Tangan Digital — panel Pengaturan */
+.ttd-box{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.ttd-preview{
+  display:flex;align-items:center;justify-content:center;
+  width:220px;height:110px;border:1.5px dashed var(--border-strong);border-radius:var(--radius-sm);
+  background:var(--cream-1);padding:8px;flex:none;
+}
+.ttd-preview img{max-width:100%;max-height:100%;object-fit:contain;}
+.ttd-preview .muted{font-size:.78rem;text-align:center;padding:0 8px;}
+.ttd-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-start;}
+
+/* ===== Filters / toolbar ===== */
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.filter-bar input, .filter-bar select{
+  background:var(--cream-1);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:9px 11px;font-size:.83rem;color:var(--text);
+}
+.filter-bar input[type="search"]{flex:1;min-width:200px;}
+.table-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px;}
+.result-count{font-size:.82rem;color:var(--text-soft);font-weight:600;}
+.table-toolbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+/* [BARU] Pemisah tipis antar kelompok tombol di table-toolbar-actions (mis. antara aksi
+   Ekspor/Impor dengan aksi "Kirim WA per Siswa") supaya kelompok tombol terasa terpisah rapi. */
+.toolbar-divider{width:1px;align-self:stretch;min-height:22px;background:var(--border);margin:0 2px;}
+@media (max-width:600px){ .toolbar-divider{display:none;} }
+/* [BARU] Dropdown pilih siswa yang ditaruh langsung di dalam table-toolbar-actions (dipakai
+   pada toolbar "PDF & Kirim WA Ortu" di Jurnal Literasi), mengikuti gaya select di .filter-bar
+   tapi dengan lebar minimum supaya nama siswa tidak terpotong. */
+.toolbar-select{
+  background:var(--cream-1);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:9px 11px;font-size:.83rem;color:var(--text);min-width:180px;max-width:220px;
+}
+@media (max-width:600px){ .toolbar-select{min-width:0;max-width:none;flex:1 1 100%;} }
+.pagination{display:flex;gap:6px;justify-content:center;margin-top:16px;flex-wrap:wrap;}
+.pagination button{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-size:.82rem;color:var(--text-soft);}
+.pagination button.active{background:var(--green-700);color:#fff;border-color:var(--green-700);}
+
+/* [BARU] Kotak upload dokumen (Input Dokumen -> unggah otomatis ke Google Drive) */
+.dokumen-upload-box{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;
+}
+.dokumen-upload-history{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+.dokumen-upload-item{
+  display:flex;align-items:center;gap:8px;font-size:.82rem;padding:8px 10px;
+  border:1px solid var(--border);border-radius:8px;background:var(--cream-1);color:var(--text);
+}
+.dokumen-upload-item a{color:var(--green-700);font-weight:600;text-decoration:none;}
+.dokumen-upload-item a:hover{text-decoration:underline;}
+.dokumen-upload-item.status-error{border-color:var(--brick-600);color:var(--brick-700);}
+.dokumen-upload-item.status-uploading{opacity:.75;}
+
+/* ===== Toast / Modal ===== */
+/* [BARU] Toast kini berupa "bottom sheet" kecil: selalu meluncur dari bawah ke atas
+   setiap kali ada perubahan data (tambah/edit/hapus/perbarui), dengan ikon bulat +
+   warna aksen yang berbeda sesuai jenis aksinya (lihat detectToastType di app.js)
+   supaya sekilas pandang saja penggunanya sudah tahu jenis informasi yang muncul. */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(28px);
+  background:var(--green-900);color:#fff;padding:11px 18px 11px 14px;border-radius:14px;font-size:.85rem;
+  box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .28s ease, transform .28s ease;z-index:200;
+  display:flex;align-items:center;gap:9px;max-width:min(90vw,420px);line-height:1.35;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast-icon{flex:none;display:flex;color:#fff;}
+.toast-msg{flex:1;}
+.toast[data-kind="add"]{background:var(--green-700);}
+.toast[data-kind="update"]{background:var(--green-800);}
+.toast[data-kind="delete"]{background:var(--brick-700);}
+.toast[data-kind="warn"]{background:var(--gold-700);}
+.toast[data-kind="info"]{background:var(--green-900);}
+/* [BARU] Autocomplete riwayat ketikan (mis. Nama Guru) — daftar saran muncul tepat
+   di bawah kolom input begitu difokus/diketik, supaya nama yang sudah pernah
+   diketik sebelumnya bisa langsung dipilih tanpa mengetik ulang dari awal. */
+.autocomplete-field{position:relative;}
+.autocomplete-list{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);
+  border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-md);
+  max-height:190px;overflow-y:auto;z-index:60;padding:4px;
+}
+.autocomplete-item{
+  padding:8px 10px;font-size:.85rem;color:var(--text);border-radius:7px;cursor:pointer;
+}
+.autocomplete-item:hover, .autocomplete-item:active{background:var(--cream-1);}
+
+/* [BARU] Popup ajakan Instal Aplikasi — bottom sheet ringkas yang meluncur dari
+   bawah ke atas, melengkapi tombol "Instal Aplikasi" yang ada di sidebar/navigasi. */
+.btn-sm{padding:8px 14px;font-size:.82rem;}
+.install-banner{
+  position:fixed;left:16px;right:16px;bottom:16px;max-width:460px;margin:0 auto;
+  background:var(--surface);color:var(--text);border:1px solid var(--border);
+  border-radius:var(--radius-md);box-shadow:var(--shadow-lg);
+  display:flex;align-items:center;gap:12px;padding:14px 16px;z-index:210;
+  transform:translateY(120%);transition:transform .32s ease;
+}
+.install-banner.show{transform:translateY(0);}
+.install-banner-icon{
+  flex:none;width:40px;height:40px;border-radius:50%;background:var(--gold-100);
+  color:var(--gold-700);display:flex;align-items:center;justify-content:center;
+}
+.install-banner-text{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;}
+.install-banner-text strong{font-size:.9rem;}
+.install-banner-text span{font-size:.78rem;color:var(--text-soft);}
+.install-banner-actions{flex:none;display:flex;gap:8px;}
+@media (max-width:520px){
+  .install-banner{flex-wrap:wrap;bottom:12px;left:12px;right:12px;}
+  .install-banner-text{order:2;flex-basis:100%;}
+  .install-banner-actions{order:3;flex-basis:100%;justify-content:flex-end;}
+}
+
+.modal{position:fixed;inset:0;background:rgba(7,20,13,.5);display:flex;align-items:center;justify-content:center;z-index:300;}
+.modal-box{background:var(--surface);border-radius:var(--radius-md);padding:22px;max-width:340px;width:90%;box-shadow:var(--shadow-lg);}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;}
+
+/* [BARU] Modal Pengingat WA Massal */
+.modal-box-wide{max-width:520px;max-height:82vh;display:flex;flex-direction:column;min-height:0;}
+.wa-modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0;}
+.wa-modal-head h3{margin:0;font-family:var(--font-serif,inherit);}
+.modal-close{background:none;border:none;font-size:1.4rem;line-height:1;color:var(--text-soft);cursor:pointer;padding:2px 6px;border-radius:6px;}
+.modal-close:hover{color:var(--text);background:var(--cream-1);}
+.wa-modal-sub{margin:4px 0 12px;font-size:.82rem;flex-shrink:0;}
+.wa-modal-list{overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:8px;padding-right:2px;min-height:0;}
+/* [FIX] #kirimTugasListStep & #waReminderListStep-like wrappers harus jadi flex
+   container juga, kalau tidak flex:1 + overflow-y:auto pada .wa-modal-list di
+   dalamnya tidak akan aktif -> daftar siswa terpotong tanpa scrollbar. */
+#kirimTugasListStep,
+#kirimTugasFormStep{display:flex;flex-direction:column;min-height:0;flex:1;}
+#kirimTugasFormStep{flex:0 1 auto;}
+.wa-modal-empty{text-align:center;color:var(--text-soft);padding:28px 10px;font-size:.88rem;}
+.wa-item{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;background:var(--cream-1);}
+.wa-item-info{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.wa-item-name{font-weight:700;font-size:.88rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wa-item-meta{font-size:.76rem;color:var(--text-soft);}
+.wa-item button{flex-shrink:0;background:none;border:1px solid #25D366;color:#128C4A;border-radius:7px;padding:7px 12px;font-size:.78rem;font-weight:600;white-space:nowrap;}
+.wa-item button:hover{background:#25D366;color:#fff;}
+.wa-item button:disabled{opacity:.55;cursor:default;background:none;color:var(--text-soft);border-color:var(--border);}
+.wa-item.wa-item-nohp button{border-color:var(--border);color:var(--text-soft);}
+.wa-item.wa-item-sent{opacity:.65;}
+.wa-modal-actions{justify-content:space-between;flex-shrink:0;}
+/* [PERBAIKAN] Area gulir untuk teks Kesan/Pesan Bacaan (Jurnal Literasi) — sama polanya
+   dengan .wa-modal-list, supaya cerita/kesan yang panjang tidak lagi bikin kotak modal
+   memanjang tanpa batas menutupi seluruh layar; teksnya digulir DI DALAM kotak, ukuran
+   kotak modal sendiri tetap muat di layar (dibatasi modal-box-wide, max-height:82vh). */
+.lit-kesan-modal-scroll{overflow-y:auto;flex:1;min-height:0;padding-right:2px;}
+
+.pdf-offscreen{position:fixed;left:-9999px;top:0;}
+
+/* ===== Responsive ===== */
+@media (max-width:980px){
+  .cards-grid{grid-template-columns:repeat(2,1fr);}
+  .charts-grid{grid-template-columns:1fr;}
+}
+/* [PERBAIKAN] Form (mis. "Isi Jurnal Literasi") tetap 2 kolom sampai lebar tablet (860px) supaya
+   tidak terasa boros/kepanjangan di layar tablet — baru turun ke 1 kolom penuh di layar HP
+   (<640px) supaya tiap kotak isian cukup lega untuk diketik dengan jari. */
+@media (max-width:640px){
+  .grid-form{grid-template-columns:1fr;}
+}
+@media (max-width:860px){
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow-lg);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .hamburger{display:flex;}
+  .scrim.show{display:block;}
+  .content{padding:16px 14px 50px;}
+  .topbar{padding:14px 16px;}
+}
+@media (max-width:520px){
+  .cards-grid{grid-template-columns:1fr 1fr;}
+  .topbar h1{font-size:1.05rem;}
+}
+
+/* ===== Print ===== */
+@media print{
+  .sidebar, .scrim, .topbar, .filter-bar, .table-toolbar, .pagination, .toast, .modal, #splash{display:none !important;}
+  .main{margin-left:0 !important;}
+  .content{padding:0;max-width:none;}
+  .panel{box-shadow:none;border:none;}
+  body{background:#fff;}
+  .data-table{min-width:0;}
+}
+/* [BARU] Header & footer khusus cetak — tersembunyi di layar, tampil saat Cetak/PDF */
+.print-header, .print-footer{display:none;}
+@media print{
+  .print-header{display:block;text-align:center;margin-bottom:14px;}
+  .print-header h2{margin:0;font-size:15px;color:#0C6B3D;}
+  .print-header h3{margin:2px 0;font-size:13px;color:#222;}
+  .print-header p{margin:2px 0 0;font-size:11px;color:#555;}
+  .print-footer{display:flex;justify-content:flex-end;margin-top:40px;font-size:11px;color:#222;}
+  .print-footer .sig{width:45%;text-align:center;}
+  .print-footer .sig .line{margin-top:60px;border-top:1px solid #333;padding-top:4px;font-weight:600;}
+}
+
+/* ===== [BARU] Jurnal Mengajar ===== */
+.jurnal-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:16px;font-size:.86rem;color:var(--text-soft);}
+.jurnal-breadcrumb button{background:none;border:none;padding:2px 2px;font:inherit;color:var(--green-700);font-weight:700;cursor:pointer;border-radius:6px;}
+.jurnal-breadcrumb button:hover{text-decoration:underline;}
+.jurnal-breadcrumb .crumb-sep{color:var(--text-soft);opacity:.6;}
+.jurnal-breadcrumb .crumb-current{color:var(--text);font-weight:700;}
+
+.jurnal-hero{background:linear-gradient(135deg, var(--green-800), var(--green-700));border-radius:var(--radius-lg);padding:22px 24px;margin-bottom:18px;color:#fff;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.jurnal-hero::after{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.07);}
+.jurnal-hero h2{font-family:var(--font-display);font-size:1.3rem;margin:0 0 4px;font-weight:600;}
+.jurnal-hero p{margin:0;font-size:.86rem;color:rgba(255,255,255,.82);max-width:520px;}
+
+.jurnal-mapel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.jurnal-mapel-card{position:relative;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px 16px;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column;gap:10px;}
+.jurnal-mapel-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.jurnal-mapel-card .mapel-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+.jurnal-mapel-card .mapel-nama{font-weight:700;font-size:.98rem;color:var(--text);}
+.jurnal-mapel-card .mapel-desk{font-size:.78rem;color:var(--text-soft);line-height:1.4;}
+.jurnal-mapel-card .mapel-badge{position:absolute;top:14px;right:14px;font-size:.66rem;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--cream-1);color:var(--text-soft);}
+.jurnal-mapel-card .mapel-badge.ready{background:var(--green-100);color:var(--green-700);}
+
+.jurnal-sem-block{margin-bottom:18px;}
+.jurnal-sem-title{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.92rem;color:var(--text);margin:0 0 10px;}
+.jurnal-sem-title .dot{width:9px;height:9px;border-radius:50%;background:var(--gold-500);flex-shrink:0;}
+.jurnal-bab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.jurnal-bab-card{position:relative;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px 14px;box-shadow:var(--shadow-sm);cursor:pointer;transition:transform .15s,box-shadow .15s;}
+.jurnal-bab-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.jurnal-bab-card .bab-no{font-family:var(--font-display);font-size:1.5rem;font-weight:600;color:var(--green-700);line-height:1;}
+.jurnal-bab-card .bab-judul{font-size:.82rem;font-weight:600;color:var(--text);margin-top:6px;line-height:1.35;min-height:36px;}
+.jurnal-bab-card .bab-status{display:inline-block;margin-top:10px;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:99px;}
+.jurnal-bab-card .bab-status.ready{background:var(--green-100);color:var(--green-700);}
+.jurnal-bab-card .bab-status.segera{background:var(--gold-50,var(--cream-1));color:var(--gold-700,var(--text-soft));}
+
+.jurnal-empty{text-align:center;padding:50px 20px;color:var(--text-soft);}
+.jurnal-empty .emoji{font-size:2.2rem;display:block;margin-bottom:10px;}
+.jurnal-empty h3{color:var(--text);margin:0 0 6px;font-family:var(--font-display);font-weight:600;}
+.jurnal-empty p{margin:0 auto 16px;max-width:380px;font-size:.86rem;line-height:1.5;}
+
+.jurnal-info-panel{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 20px;}
+.jurnal-info-item{display:flex;flex-direction:column;gap:3px;}
+.jurnal-info-item span{font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:var(--text-soft);font-weight:700;}
+.jurnal-info-item strong{font-size:.86rem;color:var(--text);font-weight:600;line-height:1.4;}
+
+.jurnal-progress-row{display:flex;align-items:center;gap:12px;margin:2px 0 16px;}
+.jurnal-progress-row .progress-track{flex:1;}
+.jurnal-progress-row strong{font-size:.82rem;color:var(--text);white-space:nowrap;}
+
+.jurnal-pertemuan{border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:12px;background:var(--surface);box-shadow:var(--shadow-sm);overflow:hidden;}
+.jurnal-pertemuan-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.jurnal-pertemuan-num{width:34px;height:34px;border-radius:10px;background:var(--green-100);color:var(--green-700);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.86rem;flex-shrink:0;}
+.jurnal-pertemuan-head.filled .jurnal-pertemuan-num{background:var(--green-700);color:#fff;}
+.jurnal-pertemuan-titlewrap{flex:1;min-width:0;}
+.jurnal-pertemuan-titlewrap .pt-title{font-weight:700;font-size:.88rem;color:var(--text);line-height:1.35;}
+.jurnal-pertemuan-titlewrap .pt-meta{font-size:.74rem;color:var(--text-soft);margin-top:2px;}
+.jurnal-pertemuan-chev{flex-shrink:0;transition:transform .18s;color:var(--text-soft);}
+.jurnal-pertemuan.open .jurnal-pertemuan-chev{transform:rotate(180deg);}
+.jurnal-pertemuan-status{flex-shrink:0;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--cream-1);color:var(--text-soft);white-space:nowrap;}
+.jurnal-pertemuan-status.done{background:var(--green-100);color:var(--green-700);}
+/* [BARU] Tombol hapus pertemuan manual */
+.jurnal-pertemuan-del{flex-shrink:0;width:26px;height:26px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--text-soft);font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s;}
+.jurnal-pertemuan-del:hover{background:#fee2e2;color:#b91c1c;border-color:#fca5a5;}
+.jurnal-pertemuan-body{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+.jurnal-pertemuan.open .jurnal-pertemuan-body{max-height:1400px;}
+.jurnal-pertemuan-inner{padding:0 16px 18px;border-top:1px solid var(--border);}
+.jurnal-field-block{margin-top:14px;}
+.jurnal-field-block > span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.03em;font-weight:700;color:var(--text-soft);margin-bottom:6px;}
+.jurnal-field-block p.readtext{font-size:.86rem;color:var(--text);line-height:1.55;background:var(--cream-1);border-radius:var(--radius-sm);padding:10px 12px;margin:0;}
+.jurnal-radio-row{display:flex;flex-wrap:wrap;gap:8px;}
+.jurnal-radio-row label{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--text);background:var(--cream-1);border:1px solid var(--border);border-radius:99px;padding:6px 12px;cursor:pointer;}
+.jurnal-radio-row input{accent-color:var(--green-700);}
+.jurnal-hadir-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.jurnal-hadir-row label{display:flex;flex-direction:column;gap:4px;font-size:.72rem;font-weight:700;color:var(--text-soft);text-transform:uppercase;letter-spacing:.03em;}
+.jurnal-hadir-row input{font:inherit;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);}
+.jurnal-pertemuan-inner textarea, .jurnal-pertemuan-inner input[type=text], .jurnal-pertemuan-inner input[type=date]{width:100%;font:inherit;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);resize:vertical;}
+/* [BARU] Chip "isi otomatis" untuk Kendala & Catatan/Refleksi Guru */
+.jurnal-preset-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.jurnal-preset-chip{font:inherit;font-size:.72rem;font-weight:600;color:var(--green-700);background:var(--green-50,var(--cream-1));border:1px dashed var(--green-700);border-radius:99px;padding:5px 10px;cursor:pointer;transition:background .15s,color .15s;}
+.jurnal-preset-chip:hover{background:var(--green-700);color:#fff;}
+[data-theme="dark"] .jurnal-preset-chip{color:var(--gold-500);border-color:var(--gold-600);}
+[data-theme="dark"] .jurnal-preset-chip:hover{background:var(--gold-600);color:#1a1a1a;}
+.jurnal-tercapai-toggle{display:flex;align-items:center;gap:8px;margin-top:14px;}
+.jurnal-tercapai-toggle label{display:flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;color:var(--text);cursor:pointer;}
+.jurnal-pertemuan-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;}
+.jurnal-saved-note{font-size:.72rem;color:var(--green-700);font-weight:600;margin-right:auto;align-self:center;}
+
+.jurnal-mapel-card[data-mapel="ipas"] .mapel-icon{background:var(--sub-ipas-bg);color:var(--sub-ipas-text);}
+.jurnal-mapel-card[data-mapel="bindo"] .mapel-icon{background:var(--sub-bindo-bg);color:var(--sub-bindo-text);}
+.jurnal-mapel-card[data-mapel="pancasila"] .mapel-icon{background:var(--sub-pancasila-bg);color:var(--sub-pancasila-text);}
+.jurnal-mapel-card[data-mapel="matematika"] .mapel-icon{background:var(--sub-matematika-bg);color:var(--sub-matematika-text);}
+.jurnal-mapel-card[data-mapel="kokurikuler"] .mapel-icon{background:var(--sub-kokurikuler-bg);color:var(--sub-kokurikuler-text);}
+.jurnal-mapel-card[data-mapel="literasi"] .mapel-icon{background:var(--sub-literasi-bg);color:var(--sub-literasi-text);}
+.jurnal-mapel-card[data-mapel="senirupa"] .mapel-icon{background:var(--sub-seni-bg);color:var(--sub-seni-text);}
+
+@media (max-width:980px){
+  .jurnal-mapel-grid{grid-template-columns:repeat(2,1fr);}
+  .jurnal-bab-grid{grid-template-columns:repeat(3,1fr);}
+  .jurnal-info-panel{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:600px){
+  .jurnal-mapel-grid{grid-template-columns:1fr 1fr;}
+  .jurnal-bab-grid{grid-template-columns:1fr 1fr;}
+  .jurnal-info-panel{grid-template-columns:1fr;}
+  .jurnal-hadir-row{grid-template-columns:1fr 1fr;}
+  .jurnal-hadir-row label:last-child{grid-column:1 / -1;}
+  .jurnal-hero{padding:18px 16px;}
+  .jurnal-pertemuan-titlewrap .pt-title{font-size:.84rem;}
+}
+@media (max-width:420px){
+  .jurnal-bab-grid{grid-template-columns:1fr 1fr;}
+}
+
+/* [BARU] Multi-select dropdown (checkbox) — dipakai pada Filter Mapel di Data Siswa,
+   supaya bisa memilih lebih dari satu mata pelajaran sekaligus. */
+.multi-select{position:relative;display:inline-block;}
+.multi-select-btn{
+  background:var(--cream-1);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:7px 12px;font-size:.85rem;font-weight:500;color:var(--text);cursor:pointer;min-width:140px;text-align:left;
+}
+.multi-select-btn:hover{border-color:var(--gold-600);}
+.multi-select-btn.active{border-color:var(--green-700);color:var(--green-700);font-weight:600;}
+.multi-select-panel{
+  position:absolute;top:calc(100% + 6px);left:0;z-index:40;min-width:220px;max-width:280px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+  box-shadow:var(--shadow-md, 0 6px 20px rgba(0,0,0,.12));padding:10px;
+}
+.multi-select-actions{display:flex;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.multi-select-actions button{
+  background:none;border:none;color:var(--green-700);font-size:.76rem;font-weight:700;cursor:pointer;padding:2px 4px;text-decoration:underline;
+}
+[data-theme="dark"] .multi-select-actions button{color:var(--gold-500);}
+.multi-select-list{max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:2px;}
+.multi-select-row{display:flex;align-items:center;gap:9px;padding:6px 7px;border-radius:7px;font-size:.85rem;font-weight:400;color:var(--text);cursor:pointer;}
+.multi-select-row:hover{background:var(--green-50);}
+.multi-select-row input[type="checkbox"]{width:15px;height:15px;accent-color:var(--green-700);flex-shrink:0;}
+.multi-select-empty{padding:10px;text-align:center;color:var(--text-soft);font-size:.82rem;}
+
+/* [BARU] Jurnal Kokurikuler — kartu "Bulan" (bab-sub) & tombol Rancangan Garis Besar,
+   terpisah dari grid Bulan supaya jelas bukan bagian dari isian jurnal per bulan. */
+.jurnal-bab-card .bab-sub{font-size:.72rem;color:var(--text-soft);line-height:1.35;margin-top:4px;}
+
+.jurnal-ringkasan-btn{
+  display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+  background:var(--cream-1);border:1.5px dashed var(--gold-600, var(--border-strong));
+  border-radius:var(--radius-md);padding:14px 16px;margin-bottom:18px;cursor:pointer;
+  transition:transform .15s,box-shadow .15s;
+}
+.jurnal-ringkasan-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.jurnal-ringkasan-btn-icon{font-size:1.4rem;flex-shrink:0;}
+.jurnal-ringkasan-btn-text{display:flex;flex-direction:column;gap:2px;flex:1;}
+.jurnal-ringkasan-btn-text strong{font-size:.92rem;color:var(--text);}
+.jurnal-ringkasan-btn-text span{font-size:.78rem;color:var(--text-soft);line-height:1.4;}
+.jurnal-ringkasan-btn-arrow{font-size:1.1rem;color:var(--green-700);flex-shrink:0;}
+
+.jurnal-catatan-panel{border-left:4px solid var(--gold-600, var(--gold-500));}
+
+@media (max-width:600px){
+  .jurnal-bulan-grid{grid-template-columns:1fr 1fr;}
+}
+
+/* [BARU] Numerasi — kartu info minggu berjalan */
+.numerasi-info-card{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--green-50);border:1px solid var(--green-100);}
+.numerasi-info-card h4{margin:0 0 6px;font-size:.95rem;color:var(--green-700);}
+.numerasi-info-card .ni-row{font-size:.84rem;margin-bottom:4px;line-height:1.5;}
+.numerasi-info-card .ni-row b{color:var(--text);}
+.numerasi-kalibagi-stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.numerasi-kalibagi-stats .nkb-stat{flex:1;min-width:120px;padding:10px 12px;border-radius:10px;background:var(--cream-1);text-align:center;}
+.numerasi-kalibagi-stats .nkb-stat b{display:block;font-size:1.3rem;}
+.numerasi-kalibagi-stats .nkb-stat span{font-size:.72rem;color:var(--text-soft);}
+.nkb-select{padding:5px 8px;border-radius:8px;border:1px solid var(--line);font-size:.78rem;font-family:inherit;background:var(--panel-bg,#fff);}
+.nkb-select.st-hijau{background:var(--green-100);color:var(--green-700);border-color:var(--green-100);}
+.nkb-select.st-kuning{background:var(--gold-100);color:var(--gold-700);border-color:var(--gold-100);}
+.nkb-select.st-merah{background:var(--brick-100);color:var(--brick-700);border-color:var(--brick-100);}
+.nkb-note-input{width:100%;padding:5px 8px;border-radius:8px;border:1px solid var(--line);font-size:.78rem;font-family:inherit;}

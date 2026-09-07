@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Catatan Pengumpulan Tugas &mdash; SDIT Muhammadiyah Harjamukti</title>
+<meta name="description" content="Aplikasi pencatatan pengumpulan tugas siswa SDIT Muhammadiyah Harjamukti Kota Cirebon">
+<meta name="theme-color" content="#155A94">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="splash" class="splash">
+  <img src="icons/logo.png" alt="Logo SDIT Muhammadiyah Harjamukti" class="splash-logo">
+  <div class="splash-title">SDIT Muhammadiyah<br>Harjamukti Kota Cirebon</div>
+  <div class="splash-sub">Catatan Pengumpulan Tugas</div>
+  <div class="splash-loader"><span></span><span></span><span></span></div>
+</div>
+
+<div id="app" class="app" hidden>
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Logo Sekolah" class="brand-logo">
+      <div class="brand-text">
+        <strong>SDIT Muhammadiyah</strong>
+        <span>Harjamukti &middot; Kota Cirebon</span>
+      </div>
+    </div>
+    <nav class="nav" id="mainNav">
+      <button class="nav-item active" data-view="dashboard"><svg class="ic" viewBox="0 0 24 24"><path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6V11h-6v9Zm0-16v5h6V4h-6Z"/></svg><span>Dasbor</span></button>
+      <!-- [BARU] Jadwal Pelajaran -->
+      <button class="nav-item" data-view="jadwal"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg><span>Jadwal Pelajaran</span></button>
+      <!-- [BARU] Jurnal Mengajar -->
+      <button class="nav-item" data-view="jurnal"><svg class="ic" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 19a2.5 2.5 0 0 1 2.5-2.5H20"/><path d="M8 8h8M8 11.5h8"/></svg><span>Jurnal Mengajar</span></button>
+      <!-- [BARU] Jurnal Literasi Siswa -->
+      <button class="nav-item" data-view="literasi"><svg class="ic" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M9 7h7M9 11h7"/></svg><span>Jurnal Literasi</span></button>
+      <!-- [BARU] Numerasi — Program "30 Menit Numerasi" (penguatan Matematika mingguan) -->
+      <button class="nav-item" data-view="numerasi"><svg class="ic" viewBox="0 0 24 24"><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg><span>Numerasi</span></button>
+      <button class="nav-item" data-view="ujian"><svg class="ic" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span>Ujian</span></button>
+      <button class="nav-item" data-view="input"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Input Tugas</span></button>
+      <button class="nav-item" data-view="data"><svg class="ic" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg><span>Data Tugas</span></button>
+      <button class="nav-item" data-view="siswa"><svg class="ic" viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0"/></svg><span>Data Siswa</span></button>
+      <button class="nav-item" data-view="dokumen"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M2 12l10 5 10-5M2 16l10 5 10-5"/></svg><span>Input Dokumen</span></button>
+      <button class="nav-item" data-view="pengaturan"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 0 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 0 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 0 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 0 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1Z"/></svg><span>Pengaturan &amp; Guru</span></button>
+    </nav>
+    <div class="sidebar-foot">
+      <button id="installBtn" class="btn btn-gold btn-block" hidden>Instal Aplikasi</button>
+      <div class="ty" id="sidebarTahun">Tahun Pelajaran 2026/2027</div>
+    </div>
+  </aside>
+
+  <div class="scrim" id="scrim"></div>
+
+  <!-- ===== Main ===== -->
+  <div class="main">
+    <header class="topbar">
+      <button class="hamburger" id="hamburger" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <h1 id="viewTitle">Dasbor</h1>
+      <div class="topbar-actions">
+        <button id="themeToggle" class="icon-btn" title="Ganti tema" aria-label="Ganti tema">
+          <svg class="ic sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="ic moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+        <span class="online-pill" id="onlinePill">Online</span>
+      </div>
+    </header>
+
+    <main class="content" id="content">
+
+      <!-- ===== DASHBOARD ===== -->
+      <section class="view" id="view-dashboard">
+        <!-- [BARU] Running text elegan — kata motivasi mengajar, berganti tiap kali aplikasi dibuka -->
+        <div class="motivasi-marquee" id="motivasiMarquee">
+          <div class="motivasi-marquee-track" id="motivasiMarqueeTrack">
+            <span id="motivasiMarqueeText">✨ Memuat kata motivasi…</span>
+          </div>
+        </div>
+
+        <!-- [BARU] Jam Analog + Tanggal Digital + Segarkan Data (tarik data terbaru dari Google Sheet) -->
+        <div class="dash-toolbar">
+          <div class="clock-widget">
+            <svg id="analogClock" class="analog-clock" viewBox="0 0 200 200" aria-hidden="true">
+              <circle class="clock-face" cx="100" cy="100" r="96"></circle>
+              <g id="clockTicks"></g>
+              <line id="clockHourHand" class="clock-hand clock-hand-hour" x1="100" y1="100" x2="100" y2="58"></line>
+              <line id="clockMinuteHand" class="clock-hand clock-hand-minute" x1="100" y1="100" x2="100" y2="38"></line>
+              <line id="clockSecondHand" class="clock-hand clock-hand-second" x1="100" y1="100" x2="100" y2="28"></line>
+              <circle class="clock-center" cx="100" cy="100" r="5"></circle>
+            </svg>
+            <div class="clock-digital">
+              <div class="clock-time" id="digitalTime">00:00:00</div>
+              <div class="clock-date" id="digitalDate">Memuat tanggal…</div>
+            </div>
+          </div>
+          <div class="dash-sync-box">
+            <button type="button" class="btn btn-primary" id="dashRefreshBtn" title="Ambil data terbaru dari Google Sheet">
+              <svg class="ic refresh-ic" id="dashRefreshIc" viewBox="0 0 24 24" style="width:17px;height:17px;margin-right:6px;vertical-align:-3px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><path d="M4 12a8 8 0 0 1 14.5-4.5M20 12a8 8 0 0 1-14.5 4.5"/><path d="M18.5 3v5h-5M5.5 21v-5h5"/></svg>
+              Segarkan Data
+            </button>
+            <span class="muted dash-sync-status" id="dashSyncStatus">Belum diatur.</span>
+          </div>
+          <!-- [BARU] Pemutar lagu Dasbor (audio/lagu-dasbor.mp3) -->
+          <div class="dash-audio-box" id="dashAudioBox">
+            <button type="button" class="btn btn-outline dash-audio-btn" id="dashAudioToggle" title="Putar/Jeda lagu Dasbor">
+              <svg class="ic" id="dashAudioIcPlay" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:-3px;"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="ic" id="dashAudioIcPause" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:-3px;" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+              <span id="dashAudioLabel">Putar Lagu</span>
+            </button>
+            <input type="range" id="dashAudioVolume" class="dash-audio-volume" min="0" max="1" step="0.05" value="0.6" title="Volume Lagu">
+            <audio id="dashLaguAudio" src="./audio/lagu-dasbor.mp3" loop preload="none"></audio>
+          </div>
+          <!-- [BARU] Jadwal mengajar hari ini — tampil di bawah jam -->
+          <div class="today-schedule" id="todayScheduleWidget">
+            <div class="today-schedule-head">
+              <span class="today-schedule-label">📚 Jadwal Mengajar Hari Ini</span>
+              <span class="today-schedule-day" id="todayScheduleDay">Senin</span>
+            </div>
+            <div class="today-schedule-list" id="todayScheduleList"></div>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="stat-card stat-primary">
+            <span class="stat-label">Jumlah Peserta</span>
+            <span class="stat-value" id="statSiswa">0</span>
+            <span class="stat-note">siswa terdaftar</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Jumlah Tugas Tercatat</span>
+            <span class="stat-value" id="statTugas">0</span>
+            <span class="stat-note">entri pengumpulan</span>
+          </div>
+          <div class="stat-card stat-good">
+            <span class="stat-label">Sudah Mengumpulkan</span>
+            <span class="stat-value" id="statSudah">0</span>
+            <span class="stat-note" id="statSudahPct">0%</span>
+          </div>
+          <button type="button" class="stat-card stat-bad stat-card-clickable" id="statBelumCard" title="Lihat daftar siswa yang belum mengumpulkan">
+            <span class="stat-label">Belum Mengumpulkan</span>
+            <span class="stat-value" id="statBelum">0</span>
+            <span class="stat-note" id="statBelumPct">0%</span>
+          </button>
+        </div>
+
+        <div class="progress-block">
+          <div class="progress-block-head">
+            <span>Persentase Pengumpulan Keseluruhan</span>
+            <strong id="progressPct">0%</strong>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="panel">
+            <div class="panel-head"><h3>Pengumpulan per Bab</h3></div>
+            <canvas id="chartPekan" height="220"></canvas>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Rekap per Mata Pelajaran</h3></div>
+            <canvas id="chartMapel" height="220"></canvas>
+          </div>
+        </div>
+
+        <!-- [BARU] Grafik Tren Pengumpulan (Mingguan/Bulanan) -->
+        <div class="panel">
+          <div class="panel-head panel-head-toggle">
+            <h3>Tren Pengumpulan</h3>
+            <div class="chip-toggle-group">
+              <button type="button" class="chip-toggle active" id="trendModeMinggu">Mingguan</button>
+              <button type="button" class="chip-toggle" id="trendModeBulan">Bulanan</button>
+              <button type="button" class="chip-toggle" id="trendModeBab">Per Bab</button>
+            </div>
+          </div>
+          <canvas id="chartTrend" height="180"></canvas>
+        </div>
+
+        <!-- [BARU] Peringkat Kerajinan Siswa -->
+        <div class="charts-grid">
+          <div class="panel">
+            <div class="panel-head"><h3>🏆 Paling Rajin Mengumpulkan</h3></div>
+            <div class="rank-list" id="rankingRajin"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>⚠️ Perlu Perhatian</h3></div>
+            <div class="rank-list" id="rankingPerhatian"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Entri Terbaru</h3></div>
+          <div class="table-wrap">
+            <table class="data-table" id="recentTable">
+              <thead><tr><th>Nama</th><th>Mapel</th><th>Tugas</th><th>Bab</th><th>Tanggal</th><th>Status</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== [BARU] JADWAL PELAJARAN (mapel yang diampu) ===== -->
+      <section class="view" id="view-jadwal" hidden>
+        <div class="panel form-panel" id="jadwalFormPanel">
+          <div class="panel-head"><h3 id="jadwalFormTitle">Tambah Jam Pelajaran</h3></div>
+          <form id="jadwalForm" class="grid-form" autocomplete="off">
+            <input type="hidden" id="jf_id">
+            <label class="field">
+              <span>Hari</span>
+              <select id="jf_hari" required></select>
+            </label>
+            <label class="field">
+              <span>Jam ke- (cth. 4 atau 4-5)</span>
+              <input type="text" id="jf_jam" placeholder="cth. 4-5">
+            </label>
+            <label class="field">
+              <span>Waktu</span>
+              <input type="text" id="jf_waktu" placeholder="cth. 08.40 - 09.40" required>
+            </label>
+            <label class="field">
+              <span>Mata Pelajaran</span>
+              <input type="text" id="jf_mapel" placeholder="cth. Matematika" required>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="jadwalFormSubmitBtn">+ Tambah</button>
+              <button type="button" class="btn btn-ghost" id="jadwalFormCancelBtn" hidden>Batal Edit</button>
+            </div>
+          </form>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h3 id="jadwalKelasTitle">Kelas 4 Ubay bin Kaab</h3>
+          </div>
+          <div class="panel-head panel-head-toggle" style="margin-top:4px;">
+            <span class="muted" style="font-size:.78rem;">Pilih hari</span>
+            <div class="chip-toggle-group" id="jadwalHariGroup"></div>
+          </div>
+          <div class="table-wrap jadwal-table-wrap">
+            <table class="data-table jadwal-table" id="jadwalTable">
+              <thead><tr><th>Jam</th><th>Waktu</th><th>Mata Pelajaran</th><th>Aksi</th></tr></thead>
+              <tbody id="jadwalTableBody"></tbody>
+            </table>
+          </div>
+          <p class="muted" id="jadwalKosongNote" style="margin-top:10px;" hidden>Belum ada jam pelajaran untuk hari ini. Tambahkan lewat form di atas.</p>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Rekap Jam Mengajar / Minggu</h3></div>
+          <div class="table-wrap jadwal-table-wrap">
+            <table class="data-table jadwal-table jadwal-rekap-table" id="jadwalRekapTable">
+              <thead><tr><th>Mata Pelajaran</th><th>Jumlah Jam Pelajaran (JP)</th></tr></thead>
+              <tbody id="jadwalRekapBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== [BARU] JURNAL MENGAJAR ===== -->
+      <section class="view" id="view-jurnal" hidden>
+        <div class="jurnal-breadcrumb" id="jurnalBreadcrumb"></div>
+        <div id="jurnalContent"></div>
+      </section>
+
+      <!-- ===== [BARU] JURNAL LITERASI SISWA ===== -->
+      <section class="view" id="view-literasi" hidden>
+        <div class="panel form-panel">
+          <div class="panel-head"><h3 id="literasiFormTitle">Isi Jurnal Literasi</h3></div>
+          <p class="muted" style="margin-top:-6px;margin-bottom:14px;">Catatan bacaan peserta didik — diisi setiap kali membaca, baik di sekolah maupun di rumah, sesuai Jurnal Literasi Siswa pada Buku Program Literasi Sekolah.</p>
+          <form id="literasiForm" class="grid-form" autocomplete="off">
+            <input type="hidden" id="lt_id">
+            <label class="field">
+              <span>Peserta Didik</span>
+              <select id="lt_siswa">
+                <option value="">Pilih dari Data Siswa&hellip;</option>
+                <option value="__manual__">+ Nama Lain (isi manual)&hellip;</option>
+              </select>
+            </label>
+            <label class="field" id="lt_manual_wrap" hidden>
+              <span>Nama Peserta Didik (manual)</span>
+              <input type="text" id="lt_nama_manual" placeholder="Nama lengkap">
+            </label>
+            <label class="field">
+              <span>Tanggal Membaca</span>
+              <input type="date" id="lt_tanggal" required>
+            </label>
+            <label class="field field-wide">
+              <span>Judul Buku/Bacaan</span>
+              <input type="text" id="lt_judul" required placeholder="cth. Cerita Rakyat Nusantara">
+            </label>
+            <label class="field">
+              <span>Buku Ke-</span>
+              <input type="text" id="lt_bukuKe" placeholder="cth. 2, atau Lanjutan Buku ke-2">
+              <span class="field-desc">Isi urutan buku yang dibaca ananda pada tahun ajaran ini. Kalau bacaan hari ini masih melanjutkan buku yang sama dengan catatan sebelumnya, tulis mis. &ldquo;Buku ke-2 (lanjutan)&rdquo;; kalau sudah pindah ke buku baru, tulis mis. &ldquo;Buku ke-3&rdquo;.</span>
+            </label>
+            <label class="field">
+              <span>Halaman Dibaca</span>
+              <input type="text" id="lt_halaman" placeholder="cth. 12 hlm / hlm 5&ndash;17">
+            </label>
+            <label class="field field-wide">
+              <span>Kesan/Pesan Singkat</span>
+              <textarea id="lt_kesan" rows="2" placeholder="Kesan atau pesan singkat setelah membaca (opsional)"></textarea>
+            </label>
+            <label class="field field-wide checkbox-field">
+              <input type="checkbox" id="lt_paraf">
+              <span>Sudah diparaf Orang Tua</span>
+            </label>
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost" id="lt_reset">Bersihkan</button>
+              <button type="submit" class="btn btn-primary" id="lt_submit">Simpan Jurnal</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="filter-bar">
+            <input type="search" id="litSearchBox" placeholder="Cari nama atau judul buku&hellip;">
+            <select id="litFilterSiswa"><option value="">Semua Peserta</option></select>
+            <select id="litFilterParaf"><option value="">Semua Status Paraf</option><option value="ya">Sudah Diparaf</option><option value="belum">Belum Diparaf</option></select>
+            <input type="date" id="litFilterDariTgl" title="Dari tanggal">
+            <input type="date" id="litFilterSampaiTgl" title="Sampai tanggal">
+            <button class="btn btn-ghost" id="litClearFilters">Reset Filter</button>
+          </div>
+          <div class="table-toolbar">
+            <div class="result-count-wrap">
+              <div class="result-count" id="litResultCount">0 data</div>
+            </div>
+            <div class="table-toolbar-actions">
+              <button class="btn btn-outline" id="litExportPdfBtn">Ekspor PDF</button>
+              <button class="btn btn-outline" id="litExportXlsxBtn">Ekspor Excel</button>
+              <button class="btn btn-outline" id="litTemplateBtn">Unduh Template Excel</button>
+              <label class="btn btn-outline file-btn">Impor dari Excel<input type="file" id="litImportInput" accept=".xlsx,.xls" hidden></label>
+              <span class="toolbar-divider" aria-hidden="true"></span>
+              <select id="litWaSiswaSelect" class="toolbar-select" title="Pilih peserta didik untuk dikirim PDF Jurnal Literasinya ke WA orang tua">
+                <option value="">Pilih Siswa untuk Kirim WA&hellip;</option>
+              </select>
+              <button class="btn btn-wa-outline" id="litExportWaBtn" type="button" title="Buat PDF Jurnal Literasi khusus siswa terpilih, lalu buka WhatsApp orang tuanya">PDF &amp; Kirim WA Ortu</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="literasiTable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Tanggal</th>
+                  <th>Nama Peserta Didik</th>
+                  <th>Judul Buku/Bacaan</th>
+                  <th>Buku Ke</th>
+                  <th>Halaman Dibaca</th>
+                  <th>Kesan/Pesan Singkat</th>
+                  <th>Paraf Ortu</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== [BARU] NUMERASI — "30 Menit Numerasi" (Program Penguatan Matematika Mingguan) ===== -->
+      <section class="view" id="view-numerasi" hidden>
+        <div class="panel">
+          <div class="panel-head"><h3>Program "30 Menit Numerasi"</h3></div>
+          <p class="muted" style="margin-top:-6px;margin-bottom:14px;">Penguatan rutin 1 pekan 1 hari, 30 menit — bukan materi baru. Pilih bulan &amp; pekan untuk melihat fokus materi minggu berjalan, lalu catat hasil pelaksanaannya di bawah.</p>
+          <div class="grid-form">
+            <label class="field">
+              <span>Bulan</span>
+              <select id="num_bulan"></select>
+            </label>
+            <label class="field">
+              <span>Pekan / Sesi</span>
+              <select id="num_minggu"></select>
+            </label>
+          </div>
+          <div class="numerasi-info-card" id="numerasiInfoCard"></div>
+        </div>
+
+        <!-- Log Monitoring Pertemuan -->
+        <div class="panel form-panel">
+          <div class="panel-head"><h3 id="numerasiLogFormTitle">Catatan Hasil Pertemuan (Monitoring)</h3></div>
+          <p class="muted" style="margin-top:-6px;margin-bottom:14px;">Diisi guru setelah sesi selesai (5 menit refleksi), per peserta didik — pilih satu atau beberapa siswa sekaligus kalau catatannya sama.</p>
+          <form id="numerasiLogForm" class="grid-form" autocomplete="off">
+            <input type="hidden" id="nl_id">
+            <div class="field field-wide">
+              <span>Peserta Didik <em class="field-hint" id="numSelectedCount">(0 dipilih)</em></span>
+              <div class="student-picker" id="numStudentPicker">
+                <div class="student-picker-toolbar">
+                  <input type="search" id="numStudentSearch" placeholder="Cari nama atau NIS&hellip;">
+                  <div class="chip-group" id="numLpFilter">
+                    <button type="button" class="chip active" data-lp="">Semua</button>
+                    <button type="button" class="chip" data-lp="L">L</button>
+                    <button type="button" class="chip" data-lp="P">P</button>
+                  </div>
+                  <button type="button" class="link-btn" id="numSelectAllBtn">Pilih Semua</button>
+                  <button type="button" class="link-btn" id="numClearSelectBtn">Kosongkan</button>
+                </div>
+                <div class="student-list" id="numStudentList"></div>
+                <p class="edit-mode-note" id="numEditModeNote" hidden>Mode edit hanya berlaku untuk satu siswa &mdash; memilih siswa lain akan menggantikan pilihan sebelumnya.</p>
+              </div>
+            </div>
+            <label class="field">
+              <span>Tanggal Pelaksanaan</span>
+              <input type="date" id="nl_tanggal" required>
+            </label>
+            <label class="field field-wide">
+              <span>Materi</span>
+              <input type="text" id="nl_materi" placeholder="Terisi otomatis dari pilihan Bulan/Pekan di atas, bisa diedit">
+            </label>
+            <label class="field field-wide">
+              <span>Materi yang Perlu Dikuatkan</span>
+              <input type="text" id="nl_catatan" placeholder="cth. Pengurangan dengan teknik meminjam">
+            </label>
+            <label class="field">
+              <span>Kategori</span>
+              <select id="nl_kategori">
+                <option value="hijau">Hijau — sudah menguasai</option>
+                <option value="kuning">Kuning — perlu penguatan</option>
+                <option value="merah">Merah — perlu pendampingan</option>
+              </select>
+            </label>
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost" id="nl_reset">Bersihkan</button>
+              <button type="submit" class="btn btn-primary" id="nl_submit">Simpan Catatan</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Riwayat Pertemuan Numerasi</h3></div>
+          <div class="table-toolbar">
+            <div class="result-count-wrap"></div>
+            <div class="table-toolbar-actions">
+              <button class="btn btn-outline" id="numExportXlsxBtn">Ekspor Excel</button>
+              <button class="btn btn-outline" id="numTemplateBtn">Unduh Template Excel</button>
+              <label class="btn btn-outline file-btn">Impor dari Excel<input type="file" id="numImportInput" accept=".xlsx,.xls" hidden></label>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="numerasiLogTable">
+              <thead>
+                <tr>
+                  <th>Tanggal</th><th>Nama Peserta Didik</th><th>Materi</th><th>Perlu Dikuatkan</th><th>Kategori</th><th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- [BARU] Menu khusus: Pencatatan Penguasaan Perkalian & Pembagian — tetap di halaman Numerasi, bukan menu navigasi tersendiri -->
+        <div class="panel" id="numerasiKaliBagiPanel">
+          <div class="panel-head">
+            <h3>📊 Menu Perkalian &amp; Pembagian Anak</h3>
+          </div>
+          <p class="muted" style="margin-top:-6px;margin-bottom:14px;">Pencatatan sejauh mana tiap peserta didik menguasai perkalian &amp; pembagian dasar (1&ndash;10) — fondasi hampir seluruh materi numerasi lanjutan. Pilih status langsung pada tabel, tersimpan otomatis.</p>
+          <div class="numerasi-kalibagi-stats" id="numerasiKaliBagiStats"></div>
+          <div class="filter-bar">
+            <input type="search" id="numKbSearch" placeholder="Cari nama siswa&hellip;">
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="numerasiKaliBagiTable">
+              <thead>
+                <tr>
+                  <th>No</th><th>Nama Siswa</th><th>Perkalian 1&ndash;5</th><th>Perkalian 6&ndash;10</th><th>Pembagian 1&ndash;5</th><th>Pembagian 6&ndash;10</th><th>Catatan</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== [BARU] UJIAN (Formatif F1-F10, Sumatif Tengah Semester, Sumatif Akhir Semester) ===== -->
+      <section class="view" id="view-ujian" hidden>
+        <div class="panel form-panel">
+          <div class="panel-head"><h3>Input Nilai Ujian</h3></div>
+          <p class="muted" style="margin-top:-6px;margin-bottom:14px;">Pilih Mata Pelajaran, Semester, dan Jenis Ujian terlebih dahulu — daftar seluruh peserta didik akan otomatis dimuat lengkap dengan nilai yang sudah tersimpan (kalau ada), tinggal diisi/diubah lalu simpan sekaligus.</p>
+          <div class="grid-form" style="margin-bottom:4px;">
+            <label class="field">
+              <span>Mata Pelajaran</span>
+              <select id="uj_mapel"><option value="">Pilih Mapel&hellip;</option></select>
+            </label>
+            <label class="field">
+              <span>Semester</span>
+              <select id="uj_semester">
+                <option value="Ganjil">Ganjil</option>
+                <option value="Genap">Genap</option>
+              </select>
+            </label>
+            <label class="field" id="uj_jenis_wrap">
+              <span>Jenis Ujian</span>
+              <select id="uj_jenis"><option value="">Pilih Jenis Ujian&hellip;</option></select>
+            </label>
+            <!-- [BARU] Khusus Mapel Kokurikuler: ganti "Jenis Ujian" dengan pilih Pertemuan
+                 (Bulan/Pekan) yang datanya diambil dari susunan Jurnal Mengajar Kokurikuler,
+                 supaya topik & tanggal penilaian proyek selalu sinkron dengan jurnal. -->
+            <label class="field" id="uj_kokPertemuan_wrap" hidden>
+              <span>Pertemuan (Bulan / Pekan)</span>
+              <select id="uj_kokPertemuan"><option value="">Pilih Pertemuan&hellip;</option></select>
+            </label>
+          </div>
+          <div id="ujianGridWrap"></div>
+        </div>
+
+        <!-- [BARU] Panel khusus tampil kalau Mapel = Kokurikuler dipilih: form Hari/Tanggal +
+             Topik/Tahap (bisa disesuaikan manual) sebelum tabel rubrik 4 kriteria. -->
+        <div class="panel form-panel" id="kokJurnalHeadPanel" hidden>
+          <div class="panel-head"><h3>Jurnal &amp; Format Penilaian Proyek — Pertemuan Hari Jumat</h3></div>
+          <p class="muted" style="margin-top:-6px;margin-bottom:14px;">Kelas 4 &ndash; Semester Ganjil. Hari/Tanggal &amp; Topik/Tahap otomatis terisi dari Pertemuan yang dipilih di atas (hasil isian Jurnal Mengajar Kokurikuler) &mdash; bisa disesuaikan kalau perlu.</p>
+          <div class="grid-form">
+            <label class="field">
+              <span>Hari / Tanggal</span>
+              <input type="date" id="kok_tanggal">
+            </label>
+            <label class="field field-wide">
+              <span>Topik / Tahap</span>
+              <input type="text" id="kok_topik" placeholder="cth. Orientasi &amp; Sosialisasi Proyek Budaya Nusantara">
+            </label>
+          </div>
+          <div id="kokGridWrap"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Rekap Nilai Ujian</h3></div>
+          <div class="filter-bar">
+            <input type="search" id="ujRekapSearch" placeholder="Cari nama siswa&hellip;">
+            <select id="ujRekapMapelFilter"><option value="">Semua Mapel</option></select>
+            <select id="ujRekapSemesterFilter">
+              <option value="">Semua Semester</option>
+              <option value="Ganjil">Ganjil</option>
+              <option value="Genap">Genap</option>
+            </select>
+            <select id="ujRekapJenisFilter"><option value="">Semua Jenis Ujian</option></select>
+          </div>
+          <div class="table-toolbar">
+            <div class="result-count-wrap"><span id="ujRekapCount" class="muted"></span></div>
+            <div class="table-toolbar-actions">
+              <button class="btn btn-outline" id="ujExportPdfBtn">Ekspor PDF</button>
+              <button class="btn btn-outline" id="ujExportXlsxBtn">Ekspor Excel</button>
+              <button class="btn btn-outline" id="ujTemplateBtn">Unduh Template Excel</button>
+              <label class="btn btn-outline file-btn">Impor dari Excel<input type="file" id="ujImportInput" accept=".xlsx,.xls" hidden></label>
+              <span class="toolbar-divider" aria-hidden="true"></span>
+              <select id="ujWaSiswaSelect" class="toolbar-select" title="Pilih peserta didik untuk dikirim rekap nilainya ke WA orang tua">
+                <option value="">Pilih Siswa untuk Kirim WA&hellip;</option>
+              </select>
+              <select id="ujWaSemesterSelect" class="toolbar-select" title="Semester yang direkap pada laporan">
+                <option value="Ganjil">Semester Ganjil</option>
+                <option value="Genap">Semester Genap</option>
+              </select>
+              <button class="btn btn-wa-outline" id="ujExportWaBtn" type="button" title="Buat PDF rekap nilai semua mapel siswa terpilih untuk 1 semester, lalu buka WhatsApp orang tuanya">PDF &amp; Kirim WA Ortu</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="ujianRekapTable">
+              <thead>
+                <tr><th>Nama Peserta Didik</th><th>Mapel</th><th>Semester</th><th>Jenis Ujian</th><th>Nilai</th><th>Catatan</th><th>Aksi</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- [BARU] Rekap terpisah khusus Penilaian Proyek Kokurikuler (skema kolomnya beda
+             dari Rekap Nilai Ujian biasa, jadi sengaja dibuat tabel tersendiri). -->
+        <div class="panel">
+          <div class="panel-head"><h3>Rekap Penilaian Proyek Kokurikuler</h3></div>
+          <div class="filter-bar">
+            <input type="search" id="kokRekapSearch" placeholder="Cari nama siswa&hellip;">
+            <select id="kokRekapBulanFilter"><option value="">Semua Bulan/Pertemuan</option></select>
+          </div>
+          <div class="table-toolbar">
+            <div class="result-count-wrap"><span id="kokRekapCount" class="muted"></span></div>
+            <div class="table-toolbar-actions">
+              <button class="btn btn-outline" id="kokExportPdfBtn">Ekspor PDF</button>
+              <button class="btn btn-outline" id="kokExportXlsxBtn">Ekspor Excel</button>
+              <button class="btn btn-outline" id="kokTemplateBtn">Unduh Template Excel</button>
+              <label class="btn btn-outline file-btn">Impor dari Excel<input type="file" id="kokImportInput" accept=".xlsx,.xls" hidden></label>
+              <span class="toolbar-divider" aria-hidden="true"></span>
+              <select id="kokWaSiswaSelect" class="toolbar-select" title="Pilih peserta didik untuk dikirim rekap penilaian proyeknya ke WA orang tua">
+                <option value="">Pilih Siswa untuk Kirim WA&hellip;</option>
+              </select>
+              <button class="btn btn-wa-outline" id="kokExportWaBtn" type="button" title="Buat PDF rekap penilaian proyek kokurikuler siswa terpilih (1 semester), lalu buka WhatsApp orang tuanya">PDF &amp; Kirim WA Ortu</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="kokRekapTable">
+              <thead>
+                <tr><th>Nama Peserta Didik</th><th>Bulan / Pekan</th><th>Topik</th><th>K1</th><th>K2</th><th>K3</th><th>K4</th><th>Total</th><th>Nilai</th><th>Predikat</th><th>Catatan</th><th>Aksi</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== INPUT TUGAS ===== -->
+      <section class="view" id="view-input" hidden>
+        <div class="panel form-panel">
+          <div class="panel-head"><h3 id="formTitle">Form Pengumpulan Tugas</h3></div>
+          <form id="tugasForm" class="grid-form" autocomplete="off">
+            <input type="hidden" id="f_id">
+            <div class="field field-wide">
+              <span>Peserta Didik <em class="field-hint" id="selectedCount">(0 dipilih)</em></span>
+              <div class="student-picker" id="studentPicker">
+                <div class="student-picker-toolbar">
+                  <input type="search" id="studentSearch" placeholder="Cari nama atau NIS&hellip;">
+                  <div class="chip-group" id="lpFilter">
+                    <button type="button" class="chip active" data-lp="">Semua</button>
+                    <button type="button" class="chip" data-lp="L">L</button>
+                    <button type="button" class="chip" data-lp="P">P</button>
+                  </div>
+                  <button type="button" class="link-btn" id="selectAllBtn">Pilih Semua</button>
+                  <button type="button" class="link-btn" id="clearSelectBtn">Kosongkan</button>
+                </div>
+                <div class="student-list" id="studentList"></div>
+                <p class="edit-mode-note" id="editModeNote" hidden>Mode edit hanya berlaku untuk satu siswa &mdash; memilih siswa lain akan menggantikan pilihan sebelumnya.</p>
+              </div>
+            </div>
+            <label class="field">
+              <span>Mata Pelajaran</span>
+              <input type="text" list="mapelList" id="f_mapel" required placeholder="cth. Matematika">
+              <datalist id="mapelList"></datalist>
+            </label>
+            <label class="field">
+              <span>Materi</span>
+              <input type="text" id="f_tugas" required placeholder="cth. Latihan Bab 3">
+            </label>
+            <label class="field field-wide">
+              <span id="f_tujuan_label">Tujuan Materi</span>
+              <textarea id="f_tujuan" rows="2" placeholder="cth. Siswa mampu menjumlahkan pecahan berpenyebut sama (opsional)"></textarea>
+            </label>
+            <label class="field" id="f_pekan_wrap">
+              <span>Bab</span>
+              <select id="f_pekan" required>
+                <option value="Bab 1">Bab 1</option>
+                <option value="Bab 2">Bab 2</option>
+                <option value="Bab 3">Bab 3</option>
+                <option value="Bab 4">Bab 4</option>
+                <option value="Bab 5">Bab 5</option>
+                <option value="Bab 6">Bab 6</option>
+                <option value="Bab 7">Bab 7</option>
+                <option value="Bab 8">Bab 8</option>
+                <option value="Bab 9">Bab 9</option>
+                <option value="Bab 10">Bab 10</option>
+                <option value="__manual__">Lainnya (isi manual)…</option>
+              </select>
+              <input type="text" id="f_pekan_manual" placeholder="cth. Literasi, Numerasi" style="margin-top:6px;" hidden>
+            </label>
+            <label class="field">
+              <span>Tanggal</span>
+              <input type="date" id="f_tanggal" required>
+            </label>
+            <label class="field">
+              <span>Status</span>
+              <select id="f_status" required>
+                <option value="Sudah Mengumpulkan">Sudah Mengumpulkan</option>
+                <option value="Belum Mengumpulkan">Belum Mengumpulkan</option>
+              </select>
+            </label>
+            <label class="field field-wide">
+              <span>Catatan
+                <button type="button" class="link-btn" id="autoCatatanBtn" style="margin-left:8px;">✨ Buat Catatan Otomatis</button>
+              </span>
+              <textarea id="f_catatan" rows="2" placeholder="Catatan tambahan (opsional) — atau klik &quot;Buat Catatan Otomatis&quot; sesuai Status"></textarea>
+            </label>
+            <!-- [BARU] Auto-lengkapi siswa yang tidak dipilih menjadi Belum Mengumpulkan -->
+            <label class="field field-wide checkbox-field" id="f_autoBelumWrap">
+              <input type="checkbox" id="f_autoBelum" checked>
+              <span>Tandai otomatis siswa lain yang tidak dipilih sebagai <strong>Belum Mengumpulkan</strong> untuk tugas ini (agar total selalu <span id="autoBelumTotal">17</span> siswa)</span>
+            </label>
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost" id="f_reset">Bersihkan</button>
+              <button type="submit" class="btn btn-primary" id="f_submit">Simpan Data</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ===== DATA TUGAS ===== -->
+      <section class="view" id="view-data" hidden>
+        <div class="panel">
+          <div class="filter-bar">
+            <input type="search" id="searchBox" placeholder="Cari nama, NIS, mapel, atau tugas&hellip;">
+            <select id="filterPekan"><option value="">Semua Bab</option><option>Bab 1</option><option>Bab 2</option><option>Bab 3</option><option>Bab 4</option><option>Bab 5</option><option>Bab 6</option><option>Bab 7</option><option>Bab 8</option><option>Bab 9</option><option>Bab 10</option></select>
+            <select id="filterMapel"><option value="">Semua Mapel</option></select>
+            <select id="filterSiswa"><option value="">Semua Peserta</option></select>
+            <select id="filterStatus"><option value="">Semua Status</option><option>Sudah Mengumpulkan</option><option>Belum Mengumpulkan</option></select>
+            <input type="date" id="filterDariTgl" title="Dari tanggal">
+            <input type="date" id="filterSampaiTgl" title="Sampai tanggal">
+            <button class="btn btn-ghost" id="clearFilters">Reset Filter</button>
+          </div>
+          <div class="table-toolbar">
+            <div class="result-count-wrap">
+              <div class="result-count" id="resultCount">0 data</div>
+              <button type="button" class="badge badge-bad badge-clickable" id="belumSummaryBtn" title="Klik untuk menampilkan hanya tugas yang belum dikumpulkan">0 Belum Dikerjakan</button>
+            </div>
+            <div class="table-toolbar-actions">
+              <button class="btn btn-wa-outline" id="waReminderBtn" title="Kirim pengingat WA ke orang tua siswa yang belum mengumpulkan (sesuai filter yang aktif saat ini)">Pengingat WA Massal</button>
+              <button class="btn btn-wa-outline" id="kirimTugasBtn" title="Kirim berkas tugas (PDF/JPG/PNG/MP3) ke WhatsApp seluruh orang tua siswa">Kirim Tugas (Berkas)</button>
+              <button class="btn btn-outline" id="exportPdfBtn">Ekspor PDF</button>
+              <button class="btn btn-outline" id="exportXlsxBtn">Ekspor Excel</button>
+              <button class="btn btn-outline" id="printBtn">Cetak</button>
+            </div>
+          </div>
+          <!-- [BARU] Header cetak — hanya tampil saat mencetak, diisi otomatis oleh printTable() -->
+          <div class="print-header" id="printHeader"></div>
+          <div class="table-wrap">
+            <table class="data-table" id="mainTable">
+              <thead>
+                <tr>
+                  <th data-sort="no">No</th>
+                  <th data-sort="nis">NIS</th>
+                  <th data-sort="nama">Nama</th>
+                  <th data-sort="lp">L/P</th>
+                  <th data-sort="mapel">Mapel</th>
+                  <th data-sort="tugas">Materi</th>
+                  <th>Tujuan Materi</th>
+                  <th data-sort="pekan">Bab</th>
+                  <th data-sort="tanggal">Tanggal</th>
+                  <th data-sort="status">Status</th>
+                  <th>Catatan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pagination" id="pagination"></div>
+          <!-- [BARU] Footer cetak (tanda tangan Guru Kelas) — hanya tampil saat mencetak -->
+          <div class="print-footer" id="printFooter"></div>
+        </div>
+      </section>
+
+      <!-- ===== DATA SISWA ===== -->
+      <section class="view" id="view-siswa" hidden>
+        <div class="panel">
+          <div class="panel-head"><h3>Master Data Peserta Didik</h3><span class="muted" id="siswaCount"></span></div>
+          <!-- [BARU] Tambah / Ekspor / Template / Impor Data Siswa -->
+          <div class="btn-row" style="flex-wrap:wrap;margin-bottom:14px;">
+            <button type="button" class="btn btn-primary" id="addSiswaBtn">+ Tambah Siswa</button>
+            <button type="button" class="btn btn-outline" id="exportSiswaBtn">Ekspor Data Siswa</button>
+            <button type="button" class="btn btn-outline" id="templateSiswaBtn">Unduh Template Excel</button>
+            <label class="btn btn-outline file-btn">Impor Data Siswa (Excel)<input type="file" id="importSiswaInput" accept=".xlsx,.xls" hidden></label>
+          </div>
+          <!-- [BARU] Filter Bulan & Mata Pelajaran — memengaruhi kolom Tugas Tercatat/Sudah/Belum & isi Laporan PDF -->
+          <div class="btn-row" style="flex-wrap:wrap;margin-bottom:14px;align-items:center;gap:8px;">
+            <label style="display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--text-soft);">
+              <span>Filter Bulan:</span>
+              <select id="filterSiswaBulan"><option value="">Semua Bulan</option></select>
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--text-soft);">
+              <span>Filter Mapel:</span>
+              <div class="multi-select" id="filterSiswaMapelWrap">
+                <button type="button" class="multi-select-btn" id="filterSiswaMapelBtn">Semua Mapel</button>
+                <div class="multi-select-panel" id="filterSiswaMapelPanel" hidden>
+                  <div class="multi-select-actions">
+                    <button type="button" id="filterSiswaMapelAll">Pilih Semua</button>
+                    <button type="button" id="filterSiswaMapelNone">Bersihkan</button>
+                  </div>
+                  <div class="multi-select-list" id="filterSiswaMapelList"></div>
+                </div>
+              </div>
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--text-soft);">
+              <span>Filter Bab:</span>
+              <select id="filterSiswaBab"><option value="">Semua Bab</option><option>Bab 1</option><option>Bab 2</option><option>Bab 3</option><option>Bab 4</option><option>Bab 5</option><option>Bab 6</option><option>Bab 7</option><option>Bab 8</option><option>Bab 9</option><option>Bab 10</option></select>
+            </label>
+            <span class="muted" style="font-size:.8rem;">Berlaku untuk kolom Tugas Tercatat/Sudah/Belum dan tombol Laporan PDF di setiap baris.</span>
+          </div>
+          <form id="addSiswaForm" class="grid-form" hidden style="margin-bottom:16px;padding:14px;border:1px solid var(--border);border-radius:10px;">
+            <label class="field">
+              <span>NIS</span>
+              <input type="text" id="as_nis" required placeholder="cth. 3160169851">
+            </label>
+            <label class="field">
+              <span>Nama Peserta Didik</span>
+              <input type="text" id="as_nama" required placeholder="Nama lengkap">
+            </label>
+            <label class="field">
+              <span>L/P</span>
+              <select id="as_lp"><option value="L">L</option><option value="P">P</option></select>
+            </label>
+            <label class="field">
+              <span>No. HP Ortu</span>
+              <input type="text" id="as_hp" placeholder="08xxxxxxxxxx">
+            </label>
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost" id="cancelAddSiswaBtn">Batal</button>
+              <button type="submit" class="btn btn-primary">Simpan Siswa Baru</button>
+            </div>
+          </form>
+          <div class="table-wrap">
+            <table class="data-table" id="siswaTable">
+              <thead><tr><th>No</th><th>NIS</th><th>Nama Peserta Didik</th><th>L/P</th><th>No. HP Ortu</th><th>Tugas Tercatat</th><th>Sudah</th><th>Belum</th><th>Aksi</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <button class="btn btn-outline" id="saveSiswaBtn" style="margin-top:12px;">Simpan Perubahan</button>
+        </div>
+      </section>
+
+      <!-- ===== INPUT DOKUMEN (Upload Rekapan ke Google Drive) ===== -->
+      <section class="view" id="view-dokumen" hidden>
+        <div class="panel">
+          <div class="panel-head"><h3>Upload Dokumen Rekapan Siswa</h3></div>
+          <p class="muted" style="max-width:560px;">
+            Pilih berkas (mis. hasil ekspor Data Siswa, Excel, atau PDF), lalu tekan tombol
+            "Kirim ke Google Drive" untuk mengunggahnya ke folder Google Drive sekolah di bawah
+            ini — tidak perlu membuka Google Drive atau menyalin link secara manual.
+          </p>
+          <div class="dokumen-upload-box">
+            <label class="btn btn-outline file-btn" id="dokumenUploadLabel">
+              📎 Pilih Berkas
+              <input type="file" id="dokumenUploadInput" hidden>
+            </label>
+            <button type="button" class="btn btn-primary" id="dokumenKirimBtn" hidden>📤 Kirim ke Google Drive</button>
+            <span class="muted" id="dokumenUploadFileName">Belum ada berkas dipilih.</span>
+          </div>
+          <p class="muted" id="dokumenUploadStatus" style="margin-top:10px;font-size:.82rem;"></p>
+          <div id="dokumenUploadHistory" class="dokumen-upload-history"></div>
+
+          <details style="margin-top:16px;">
+            <summary class="muted" style="cursor:pointer;">Cara kerja &amp; alternatif manual</summary>
+            <p class="muted" style="margin-top:8px;font-size:.82rem;">
+              Unggah otomatis di atas memakai Web App Google Apps Script yang diatur di menu
+              Pengaturan &amp; Guru &rarr; "Upload Dokumen ke Google Drive". Kalau belum diatur atau
+              gagal terkirim (mis. tidak ada koneksi), Ananda tetap bisa mengunggah manual lewat
+              tombol/link di bawah ini.
+            </p>
+            <a class="btn btn-outline" id="dokumenDriveBtn" href="https://drive.google.com/drive/u/0/folders/1EaPr385bUIeJY1pRgaQODipF0yTR-tg2" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;margin-top:6px;">
+              Buka Folder Google Drive
+            </a>
+            <div style="margin-top:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <input type="text" id="dokumenDriveLink" value="https://drive.google.com/drive/u/0/folders/1EaPr385bUIeJY1pRgaQODipF0yTR-tg2" readonly style="flex:1;min-width:220px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--cream-1);color:var(--text-soft);font-size:.82rem;">
+              <button type="button" class="btn btn-ghost" id="dokumenCopyBtn">Salin Link</button>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- ===== PENGATURAN & GURU ===== -->
+      <section class="view" id="view-pengaturan" hidden>
+        <div class="panel">
+          <div class="panel-head"><h3>Data Guru / Kontak</h3><span class="muted">Digunakan sebagai nama guru pada cetak PDF & pesan WhatsApp &mdash; cukup 1 guru</span></div>
+          <div class="table-wrap">
+            <table class="data-table" id="guruTable">
+              <thead><tr><th>No</th><th>Nama Guru</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <button class="btn btn-outline" id="saveGuruBtn">Simpan Nama Guru</button>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Nama Guru untuk Cetak</h3></div>
+          <label class="field field-wide">
+            <span>Pilih guru yang bertanda tangan pada laporan PDF</span>
+            <select id="printGuruSelect"></select>
+          </label>
+        </div>
+        <!-- [BARU] Tanda Tangan Digital — gambar tanda tangan (PNG/JPG) yang otomatis
+             ditempelkan di blok tanda tangan pada SEMUA menu Ekspor PDF, jadi guru tidak
+             perlu lagi print lalu tanda tangan basah di kertas. -->
+        <div class="panel">
+          <div class="panel-head"><h3>Tanda Tangan Digital</h3><span class="muted">Otomatis dipakai di blok tanda tangan pada semua menu Ekspor PDF (Data Tugas, Jurnal Literasi, Rekap Nilai Ujian, Penilaian Proyek Kokurikuler, dsb.)</span></div>
+          <div class="ttd-box">
+            <div class="ttd-preview" id="ttdPreviewWrap">
+              <img id="ttdPreviewImg" alt="Pratinjau tanda tangan digital" hidden>
+              <span class="muted" id="ttdPreviewEmpty">Belum ada tanda tangan digital tersimpan.</span>
+            </div>
+            <div class="ttd-actions">
+              <label class="btn btn-outline file-btn">Upload Tanda Tangan<input type="file" id="ttdFileInput" accept="image/png,image/jpeg" hidden></label>
+              <button type="button" class="btn btn-ghost" id="ttdClearBtn" hidden>Ulangi Tanda Tangan</button>
+            </div>
+          </div>
+          <p class="muted" style="font-size:.8rem;margin-top:8px;">Gunakan gambar tanda tangan dengan latar transparan atau putih (format PNG/JPG) supaya hasil di PDF terlihat rapi.</p>
+        </div>
+        <!-- [BARU] Pengaturan Kelas & Sekolah — Kelas, Tahun Pelajaran, Semester
+             disatukan dalam 1 kolom (urutan identitas kelas dahulu, baru periode ajaran) supaya
+             rapi dan mudah dibaca. Otomatis diterapkan pada judul halaman Jadwal, pesan WhatsApp,
+             Ekspor PDF, Ekspor Excel & Cetak. Nama guru (untuk tanda tangan cetak & pesan WA)
+             sekarang diambil langsung dari panel "Data Guru / Kontak" di atas — cukup 1 guru. -->
+        <div class="panel">
+          <div class="panel-head"><h3>Pengaturan Kelas &amp; Sekolah</h3><span class="muted">Otomatis diterapkan pada halaman Jadwal, pesan WhatsApp, Ekspor PDF, Ekspor Excel &amp; Cetak</span></div>
+          <div class="grid-form" style="grid-template-columns:1fr;max-width:420px;">
+            <label class="field">
+              <span>Kelas</span>
+              <input type="text" id="set_kelas" placeholder="cth. 4 Ubay bin Kaab">
+            </label>
+            <label class="field">
+              <span>Tahun Pelajaran</span>
+              <input type="text" id="set_tahun" placeholder="cth. 2026/2027">
+            </label>
+            <label class="field">
+              <span>Semester</span>
+              <select id="set_semester">
+                <option value="Ganjil">Ganjil</option>
+                <option value="Genap">Genap</option>
+              </select>
+            </label>
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" id="saveSekolahBtn">Simpan Pengaturan Kelas &amp; Sekolah</button>
+            </div>
+          </div>
+        </div>
+        <!-- [DIPERBAIKI] Satu URL Web App (Google Apps Script) dipakai BERSAMA untuk Sinkronisasi
+             Google Sheet & Upload Dokumen ke Google Drive — sebelumnya 2 kolom URL terpisah,
+             yang jadi penyebab sinkron/unggah gagal kalau salah satu kolom lupa diisi. -->
+        <div class="panel">
+          <div class="panel-head"><h3>Sinkronisasi &amp; Upload Dokumen (Google Apps Script)</h3><span class="muted">Satu URL Web App dipakai untuk dua hal: sinkron Data Tugas &amp; Siswa dua arah ke Google Sheet (tombol "Segarkan Data" di Dasbor), dan unggah berkas di menu "Input Dokumen" ke folder Google Drive sekolah</span></div>
+          <div class="grid-form">
+            <label class="field field-wide">
+              <span>URL Web App (Google Apps Script)</span>
+              <input type="text" id="sync_url" placeholder="https://script.google.com/macros/s/AKfycbywG45f4-v3KSNE5j5CePcbbKdN_f6fmTgPlw0vRX4J-nAs4LOahUt_GxShnQVECqmFew/exec">
+            </label>
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" id="saveSyncBtn">Simpan</button>
+            </div>
+          </div>
+          <p class="muted" id="syncStatusText" style="margin-top:8px;">Belum diatur.</p>
+          <p class="muted" style="margin-top:4px;font-size:.8rem;">Tombol sinkron Data Tugas &amp; Siswa hanya tersedia di menu Dasbor ("Segarkan Data"). URL yang sama ini otomatis dipakai juga saat menekan tombol "Kirim ke Google Drive" di menu Input Dokumen.</p>
+        </div>
+        <!-- [BARU] Buka langsung berkas Google Spreadsheet (bukan URL Web App sinkron di atas) -->
+        <div class="panel">
+          <div class="panel-head"><h3>Google Spreadsheet</h3><span class="muted">Buka langsung berkas spreadsheet datanya di Google Sheets</span></div>
+          <div class="grid-form">
+            <label class="field field-wide">
+              <span>Link Google Spreadsheet</span>
+              <input type="text" id="spreadsheet_url" placeholder="https://docs.google.com/spreadsheets/d/....">
+            </label>
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline" id="saveSpreadsheetBtn">Simpan</button>
+              <button type="button" class="btn btn-primary" id="openSpreadsheetBtn">Buka Spreadsheet</button>
+            </div>
+          </div>
+        </div>
+        <!-- [BARU] Impor Tugas Massal dari Excel — dipindahkan dari menu Backup & Restore (dihapus) -->
+        <div class="panel">
+          <div class="panel-head"><h3>Impor Tugas Massal (Excel)</h3></div>
+          <p class="muted">Impor data tugas massal dari berkas .xlsx dengan kolom: NIS, Nama, Mapel, Materi, Tujuan Materi, Bab, Tanggal, Status, Catatan.</p>
+          <div class="btn-row">
+            <label class="btn btn-outline file-btn">Impor Excel (.xlsx)<input type="file" id="importXlsxInput" accept=".xlsx,.xls" hidden></label>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Tentang Aplikasi</h3></div>
+          <p class="muted">Catatan Pengumpulan Tugas &mdash; SDIT Muhammadiyah Harjamukti Kota Cirebon. Tahun Pelajaran 2026/2027. Seluruh data tersimpan secara lokal pada perangkat ini (IndexedDB) dan aplikasi dapat digunakan tanpa koneksi internet setelah dipasang.</p>
+          <div class="btn-row">
+            <button class="btn btn-danger-outline" id="resetAllBtn">Reset Seluruh Data Tugas</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<!-- [BARU] Popup ajakan instal aplikasi — muncul dari bawah (selain tombol "Instal
+     Aplikasi" yang ada di navigasi/sidebar), supaya ajakan memasang aplikasi lebih
+     terlihat & tidak hanya mengandalkan pengguna menemukan tombolnya di sidebar. -->
+<div id="installBanner" class="install-banner" hidden>
+  <div class="install-banner-icon">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+  </div>
+  <div class="install-banner-text">
+    <strong>Pasang aplikasi ini?</strong>
+    <span>Supaya lebih cepat dibuka &amp; tetap bisa dipakai tanpa koneksi internet.</span>
+  </div>
+  <div class="install-banner-actions">
+    <button type="button" class="btn btn-ghost btn-sm" id="installBannerLater">Nanti</button>
+    <button type="button" class="btn btn-gold btn-sm" id="installBannerInstall">Instal</button>
+  </div>
+</div>
+
+<div id="confirmModal" class="modal" hidden>
+  <div class="modal-box">
+    <p id="confirmMsg">Yakin ingin melanjutkan?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="confirmCancel">Batal</button>
+      <button class="btn btn-danger" id="confirmOk">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- [BARU] Modal Pengingat WA Massal -->
+<div id="waReminderModal" class="modal" hidden>
+  <div class="modal-box modal-box-wide">
+    <div class="wa-modal-head">
+      <h3>Pengingat WA Massal</h3>
+      <button class="modal-close" id="waReminderClose" title="Tutup" aria-label="Tutup">&times;</button>
+    </div>
+    <div class="wa-modal-list" id="waReminderList"></div>
+    <div class="modal-actions wa-modal-actions">
+      <span class="muted" id="waReminderCount" style="margin-right:auto;font-size:.82rem;"></span>
+      <button class="btn btn-ghost" id="waReminderCloseBtn">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- [BARU] Modal Kirim Tugas (Berkas) ke seluruh WA orang tua -->
+<div id="kirimTugasModal" class="modal" hidden>
+  <div class="modal-box modal-box-wide">
+    <div class="wa-modal-head">
+      <h3>Kirim Tugas (Berkas) ke Orang Tua</h3>
+      <button class="modal-close" id="kirimTugasClose" title="Tutup" aria-label="Tutup">&times;</button>
+    </div>
+
+    <div id="kirimTugasFormStep">
+      <p class="muted wa-modal-sub">Lampirkan berkas tugas (PDF, JPG, PNG, atau MP3), lalu kirim satu per satu ke WhatsApp orang tua tiap siswa.</p>
+      <div class="grid-form">
+        <label class="field field-wide">
+          <span>Berkas Tugas</span>
+          <input type="file" id="kt_file" accept=".pdf,.jpg,.jpeg,.png,.mp3,application/pdf,image/jpeg,image/png,audio/mpeg">
+        </label>
+      </div>
+      <p class="muted" style="font-size:.76rem;margin-top:10px;">Catatan: WhatsApp tidak mengizinkan situs web mana pun melampirkan berkas secara otomatis ke pesan siapa pun &mdash; ini berlaku untuk semua aplikasi web, demi keamanan pengguna WA. Di HP yang mendukung, tombol <strong>Bagikan</strong> akan membuka kotak bagikan bawaan (berkas + pesan sudah terisi) tinggal pilih WhatsApp &amp; kontaknya. Bila tidak didukung, berkas akan terunduh dan WA terbuka dengan pesan siap kirim &mdash; tinggal 1x lampirkan manual (📎).</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="kirimTugasCancelBtn">Batal</button>
+        <button class="btn btn-primary" id="kirimTugasStartBtn">Mulai Kirim ke Orang Tua</button>
+      </div>
+    </div>
+
+    <div id="kirimTugasListStep" hidden>
+      <p class="muted wa-modal-sub" id="kirimTugasListSub"></p>
+      <div class="wa-modal-list" id="kirimTugasList"></div>
+      <div class="modal-actions wa-modal-actions">
+        <span class="muted" id="kirimTugasCount" style="margin-right:auto;font-size:.82rem;"></span>
+        <button class="btn btn-ghost" id="kirimTugasBackBtn">Kembali</button>
+        <button class="btn btn-ghost" id="kirimTugasDoneBtn">Selesai</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [BARU] Modal Preview Laporan PDF per Siswa (cek daftar tugas dulu sebelum PDF dibuat & WA dibuka) -->
+<div id="siswaPdfPreviewModal" class="modal" hidden>
+  <div class="modal-box modal-box-wide">
+    <div class="wa-modal-head">
+      <h3>Preview Laporan Tugas</h3>
+      <button class="modal-close" id="siswaPdfPreviewClose" title="Tutup" aria-label="Tutup">&times;</button>
+    </div>
+    <p class="muted wa-modal-sub" id="siswaPdfPreviewSub"></p>
+    <div class="wa-modal-list" id="siswaPdfPreviewList"></div>
+    <div class="modal-actions wa-modal-actions">
+      <span class="muted" id="siswaPdfPreviewCount" style="margin-right:auto;font-size:.82rem;"></span>
+      <button class="btn btn-ghost" id="siswaPdfPreviewCancelBtn">Batal</button>
+      <button class="btn btn-primary" id="siswaPdfPreviewConfirmBtn" onclick="confirmSiswaPdfPreview()">Buat PDF & Kirim WA</button>
+    </div>
+  </div>
+</div>
+
+<!-- [PERBAIKAN] SEBELUMNYA modal ini memakai ".modal-box" biasa (tanpa batas tinggi & tanpa
+     area gulir/scroll). Untuk kesan/pesan bacaan yang PENDEK tidak masalah, tapi kalau
+     anaknya menulis cerita panjang, kotak modal ikut memanjang TANPA BATAS mengikuti
+     panjang teks — melebihi tinggi layar jauh ke atas & bawah tanpa bisa digulir, sehingga
+     yang terlihat cuma potongan teks raksasa menutupi seluruh halaman (judul & tombol Tutup
+     ikut terdorong keluar layar). Sekarang dipakai pola modal lebar+scroll yang sama seperti
+     modal lain di aplikasi ini (".modal-box-wide" + area isi ber-scroll), supaya kotaknya
+     tetap muat di layar dan teks panjang tinggal digulir di dalamnya. -->
+<div id="litKesanModal" class="modal" hidden>
+  <div class="modal-box modal-box-wide">
+    <div class="wa-modal-head">
+      <h3>Kesan/Pesan Bacaan</h3>
+      <button class="modal-close" id="litKesanModalClose" title="Tutup" aria-label="Tutup">&times;</button>
+    </div>
+    <p class="muted wa-modal-sub" id="litKesanModalSub"></p>
+    <div class="lit-kesan-modal-scroll">
+      <p id="litKesanModalBody" style="white-space:pre-wrap;line-height:1.6;font-size:.92rem;color:var(--ink,#17232E);margin:0;"></p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="litKesanModalCloseBtn">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- [BARU] Modal lihat teks lengkap Tujuan Materi / Catatan pada tabel Data Tugas -->
+<div id="tugasTextModal" class="modal" hidden>
+  <div class="modal-box">
+    <div class="wa-modal-head">
+      <h3 id="tugasTextModalTitle">Tujuan Materi</h3>
+      <button class="modal-close" id="tugasTextModalClose" title="Tutup" aria-label="Tutup">&times;</button>
+    </div>
+    <p class="muted wa-modal-sub" id="tugasTextModalSub"></p>
+    <p id="tugasTextModalBody" style="white-space:pre-wrap;line-height:1.6;font-size:.92rem;color:var(--ink,#17232E);margin:0;"></p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="tugasTextModalCloseBtn">Tutup</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- PDF header render target (offscreen) -->
+<div id="pdfHeaderArea" class="pdf-offscreen"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
